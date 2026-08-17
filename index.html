@@ -1014,7 +1014,8 @@
     weightedPullupAcc:{ name:'Weighted Pull-Up (added)',   category:'gym',      m:[0.03,0.06,0.10,0.15,0.22],f:[0.02,0.04,0.07,0.1,0.15] },
     splitStanceRdlAcc:{ name:'Split Stance RDL (per hand)', category:'strength', m:[0.15,0.2,0.25,0.3,0.35], f:[0.1,0.14,0.18,0.22,0.26] },
     farmerCarryLightAcc:{ name:"Farmer Carry (light, total)", category:'strength', m:[0.25,0.35,0.45,0.55,0.65], f:[0.2,0.28,0.35,0.43,0.5] },
-    gobletSquatLightAcc:{ name:'Goblet Squat (light)', category:'strength', m:[0.12,0.16,0.2,0.25,0.3], f:[0.1,0.13,0.16,0.2,0.24] }
+    gobletSquatLightAcc:{ name:'Goblet Squat (light)', category:'strength', m:[0.12,0.16,0.2,0.25,0.3], f:[0.1,0.13,0.16,0.2,0.24] },
+    dbZPressAcc:{ name:'Double DB Z-Press (per hand)', category:'strength', m:[0.1,0.15,0.2,0.25,0.3], f:[0.07,0.1,0.14,0.18,0.22] }
   };
 
   function bodyweightKg(){ return profile.weight; }
@@ -1963,6 +1964,24 @@
         ]}
       ],
       notesRx:"Rx: Barbell 80/55kg · Wall Ball 9/6kg. Intermediate: Barbell 60/40kg. Partner AMRAP is a relay — one person works while the other rests, alternating full rounds (\"you go, I go\"), so total reps logged reflect the team's combined output, not a solo score.",
+      strengthLifts:[]
+    },
+    {
+      id:'tue3', day:'Tuesday',
+      categories:['strength','cond'],
+      summary:"A tempo-controlled press/row superset at moderate load, then a 4-round interval mixing double-DB devil press with a max-cal finisher.",
+      blocks:[
+        { title:"Mixed Tempo Strength — Every 90 sec for 15' (10 rounds, alternating A-B)", progression:true, rounds:10, lines:[
+          { text:'A: Double DB Z-Press × 12 reps (6+6) @tempo 1-0-3', log:{ key:'dbZPress', mode:'weight_only', label:'DB Z-Press', rounds:5 } },
+          { text:'B: Bent-Over Alternating DB Row × 12 reps (6+6) @tempo 1-0-3', log:{ key:'bentRow', mode:'weight_only', label:'DB Row', rounds:5 } },
+          'Moderate load, RPE ≤7/10 — both exercises completed in ≤1 min per set'
+        ]},
+        { title:"Intervals — Every 4 min for 16' (4 rounds, 2 min cap per set)", progression:false, completionType:'roundsAndDifficulty', maxRounds:4, lines:[
+          { text:'10 Double Dumbbell Devil Press', log:{ key:'devilPress', mode:'weight_only', label:'Devil Press (per DB)' } },
+          '15/10 Cal Row/Bike/Ski'
+        ]}
+      ],
+      notesRx:"Rx: DB 2×22.5/15kg · 15/10 cals. Intermediate: DB 2×17.5/10kg · 12/8 cals. Both A and B in the tempo superset must fit within 1 minute at the prescribed tempo — if you can't, the load is too heavy for today.",
       strengthLifts:[]
     }
   ];
@@ -4553,6 +4572,8 @@
     if(!skillScores[cat]) skillScores[cat] = {};
     skillScores[cat][key] = newSkillScore;
     recomputeCategoryFromSkills(cat);
+    var skillLabel2 = SKILL_NAME_BY_KEY[key] || key;
+    logHistoryEntry("Can't Actually Do This: " + skillLabel2, [cat], 0, [skillLabel2 + ' score lowered: ' + beforeSkillScore.toFixed(2) + ' → ' + newSkillScore.toFixed(2)]);
     await saveAll();
     return {
       downgraded: categoryState[cat].level < beforeCatLevel,
@@ -4572,6 +4593,8 @@
     if(!skillScores[cat]) skillScores[cat] = {};
     skillScores[cat][key] = newSkillScore;
     recomputeCategoryFromSkills(cat);
+    var skillLabel3 = SKILL_NAME_BY_KEY[key] || key;
+    logHistoryEntry('I Already Have This: ' + skillLabel3, [cat], 0, [skillLabel3 + ' score confirmed up: ' + beforeSkillScore.toFixed(2) + ' → ' + newSkillScore.toFixed(2)]);
     await saveAll();
     return {
       leveledUp: categoryState[cat].level > beforeCatLevel,
@@ -4799,6 +4822,11 @@
       out.cleanJerk = roundNum(estimateMaxKg('cleanJerk', cjLevel) * 0.775);
       out.wallBallMon = profile.gender === 'f' ? 6 : 9;
       out.powerCleanMon = profile.gender === 'f' ? 55 : 80;
+    } else if(wod.id === 'tue3'){
+      var strLevelTue3 = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
+      out.dbZPress = roundNum(estimateMaxKg('dbZPressAcc', strLevelTue3));
+      out.bentRow = roundNum(estimateMaxKg('bentOverRowAcc', strLevelTue3));
+      out.devilPress = profile.gender === 'f' ? 15 : 22.5;
     }
     // Generic fallback for any WOD without a hand-coded branch above (e.g. new WODs added via
     // the external JSON file) — any loggable key that happens to match a real tracked lift still
@@ -4891,6 +4919,10 @@
       blockNotes.push({ name:'Wall Balls', cat:'cond', note:'~' + s.wallBallMon + 'kg — squat/throw endurance under a relay clock' });
       blockNotes.push({ name:'Bar-Facing Burpees', cat:'cond', note:'engine capacity, no skill component to hide behind' });
       blockNotes.push({ name:'Power Clean', cat:'oly', note:'~' + s.powerCleanMon + 'kg — light single reps under fatigue, capacity not a max test' });
+    } else if(wod.id === 'tue3'){
+      blockNotes.push({ name:'DB Z-Press', cat:'strength', note:'~' + s.dbZPress + 'kg/hand — strict pressing under tempo control, no leg drive to cheat with' });
+      blockNotes.push({ name:'Bent-Over DB Row', cat:'strength', note:'~' + s.bentRow + 'kg/hand — pulling strength balancing the press' });
+      blockNotes.push({ name:'Devil Press + Cals', cat:'cond', note:'~' + s.devilPress + 'kg/DB — full-body engine work under a real time cap' });
     }
     if(blockNotes.length === 0){
       // Generic fallback for a new WOD with no hand-coded breakdown yet — still gives some
