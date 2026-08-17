@@ -4162,6 +4162,13 @@
     return '<div class="focus-connector">' + barsHtml + '<div class="focus-arrow-label">↑ fixing this raises the others</div></div>';
   }
 
+  /* A WOD counts as "completed" if it's ever been logged (matched by its exact history label,
+     "{day} WOD") — once logged, it drops off This Week's WODs so the list reflects what's
+     actually left to do, rather than showing sessions you've already finished. */
+  function isWodCompleted(wod){
+    return trainingHistory.some(function(e){ return e.label === wod.day + ' WOD'; });
+  }
+
   function trendSparklineSvg(cat, entries){
     var vals = entries.map(function(e){ return e.levelsAfter && e.levelsAfter[cat]; }).filter(function(v){ return v != null; });
     if(vals.length < 2){
@@ -5608,7 +5615,11 @@
 
     var overall = overallLevel();
     var vesselsHtml = CATEGORY_ORDER.map(function(cat){ return vesselRowHtml(cat, justUpdatedCats.indexOf(cat)!==-1); }).join('');
-    var weeklyHtml = WEEKLY_WODS.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('');
+    var pendingWods = WEEKLY_WODS.filter(function(wod){ return !isWodCompleted(wod); });
+    var completedWodCount = WEEKLY_WODS.length - pendingWods.length;
+    var weeklyHtml = pendingWods.length
+      ? pendingWods.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('')
+      : '<p class="section-sub" style="text-align:center; padding:16px 0 4px;">✓ All caught up — every WOD here has been logged. Add a new one when you\'re ready for it.</p>';
     var workoutCardsHtml = CATEGORY_ORDER.map(workoutCardHtml).join('');
 
     app.innerHTML =
@@ -5632,7 +5643,7 @@
       '</div>' +
       trainingHistoryHtml() +
       '<div class="card screen bg-kettlebells" id="weeklySection">' +
-        '<p class="section-title">This Week\'s WODs</p>' +
+        '<p class="section-title">This Week\'s WODs' + (completedWodCount ? ' <span style="opacity:0.6; font-weight:400;">(' + completedWodCount + ' done)</span>' : '') + '</p>' +
         '<p class="section-sub">Tap a day to see the full session, log what you actually did, and get a comment on your weights.</p>' +
         weeklyHtml +
       '</div>' +
