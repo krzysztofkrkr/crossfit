@@ -1945,6 +1945,23 @@
       ],
       notesRx:"Bicep rest day — the goblet squat option in the AMRAP is held at the chest (front-rack style), not curled, so it doesn't load biceps at all. Pace the AMRAP honestly; this is the piece meant to actually challenge you today since legs can handle real work. If any exercise starts pulling noticeably through the biceps, drop it and stick to air squats/bodyweight step-ups instead.",
       strengthLifts:[]
+    },
+    {
+      id:'mon3', day:'Monday',
+      categories:['oly','cond'],
+      summary:"A Squat Clean + Split Jerk EMOM at real working weight, then a 16-minute partner relay AMRAP mixing wall balls, bar-facing burpees, and a single power clean per round.",
+      blocks:[
+        { title:"Weightlifting — Clean & Jerk (EMOM 10')", progression:true, rounds:10, lines:[
+          { text:'1 rep Squat Clean + Split Jerk per minute @75-80% 1RM or RPE 8/10 — fixed weight from the first set', log:{ key:'cleanJerk', mode:'weight_only', label:'Squat Clean + Split Jerk', rounds:10 } }
+        ]},
+        { title:"Partner Workout — AMRAP 16' (relay, \"you go I go\")", progression:false, completionType:'amrapScore', repsPerRound:16, lines:[
+          { text:'10 Wall Balls', log:{ key:'wallBallMon', mode:'weight_only', label:'Wall Ball' } },
+          '5 Bar-Facing Burpees',
+          { text:'1 Power Clean', log:{ key:'powerCleanMon', mode:'weight_only', label:'Power Clean' } }
+        ]}
+      ],
+      notesRx:"Rx: Barbell 80/55kg · Wall Ball 9/6kg. Intermediate: Barbell 60/40kg. Partner AMRAP is a relay — one person works while the other rests, alternating full rounds (\"you go, I go\"), so total reps logged reflect the team's combined output, not a solo score.",
+      strengthLifts:[]
     }
   ];
 
@@ -4755,6 +4772,11 @@
       out.backSquat = roundNum(estimateMaxKg('backSquat', bsLevelLegPush) * 0.65);
       var strLevelLegPush = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
       out.gobletSquatLight = roundNum(estimateMaxKg('gobletSquatLightAcc', strLevelLegPush));
+    } else if(wod.id === 'mon3'){
+      var cjLevel = Math.max(1, Math.min(5, Math.round(getSkillScore('oly','cleanJerk'))));
+      out.cleanJerk = roundNum(estimateMaxKg('cleanJerk', cjLevel) * 0.775);
+      out.wallBallMon = profile.gender === 'f' ? 6 : 9;
+      out.powerCleanMon = profile.gender === 'f' ? 55 : 80;
     }
     // Generic fallback for any WOD without a hand-coded branch above (e.g. new WODs added via
     // the external JSON file) — any loggable key that happens to match a real tracked lift still
@@ -4842,6 +4864,11 @@
       blockNotes.push({ name:'Back Squat @ RPE 6-7', cat:'strength', note:'~' + s.backSquat + 'kg — real strength stimulus while biceps rest' });
       blockNotes.push({ name:'AMRAP — Squats, Step-Ups, Push-Ups, Bike', cat:'cond', note:'genuine conditioning test, zero elbow-flexion movements' });
       blockNotes.push({ name:'Core Finisher', cat:'strength', note:'midline work, no bicep involvement' });
+    } else if(wod.id === 'mon3'){
+      blockNotes.push({ name:'Squat Clean + Split Jerk EMOM', cat:'oly', note:'~' + s.cleanJerk + 'kg fixed weight — this is the piece that actually moves your Olympic Lifting level' });
+      blockNotes.push({ name:'Wall Balls', cat:'cond', note:'~' + s.wallBallMon + 'kg — squat/throw endurance under a relay clock' });
+      blockNotes.push({ name:'Bar-Facing Burpees', cat:'cond', note:'engine capacity, no skill component to hide behind' });
+      blockNotes.push({ name:'Power Clean', cat:'oly', note:'~' + s.powerCleanMon + 'kg — light single reps under fatigue, capacity not a max test' });
     }
     if(blockNotes.length === 0){
       // Generic fallback for a new WOD with no hand-coded breakdown yet — still gives some
