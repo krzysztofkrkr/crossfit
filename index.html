@@ -1983,6 +1983,32 @@
       ],
       notesRx:"Rx: DB 2×22.5/15kg · 15/10 cals. Intermediate: DB 2×17.5/10kg · 12/8 cals. Both A and B in the tempo superset must fit within 1 minute at the prescribed tempo — if you can't, the load is too heavy for today.",
       strengthLifts:[]
+    },
+    {
+      id:'wed3', day:'Wednesday',
+      categories:['oly','cond'],
+      summary:"A building Snatch complex (lift-off + pull + power-squat snatch), then three back-to-back AMRAPs pairing a 200m run with an increasing number of snatches at increasing weight.",
+      blocks:[
+        { title:"Weightlifting — Snatch Complex (Every 90 sec for 15', 10 rounds)", progression:true, rounds:10, lines:[
+          { text:'1 Snatch Lift Off + 1 Snatch Pull + 1 Power-Squat Snatch — start @RPE 6/10 or 65% 1RM, build toward a heavy, solid complex of the day. Keep hands on the bar throughout.', log:{ key:'snatch', mode:'weight_only', label:'Snatch Complex', rounds:10 } }
+        ]},
+        { title:"Barbell Conditioning A — AMRAP 5'", progression:false, completionType:'amrapScore', repsPerRound:4, lines:[
+          'Run 200m',
+          { text:'3 Snatches', log:{ key:'snatchCondA', mode:'weight_only', label:'Snatch (Weight 1)' } }
+        ]},
+        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
+        { title:"Barbell Conditioning B — AMRAP 5'", progression:false, completionType:'amrapScore', repsPerRound:7, lines:[
+          'Run 200m',
+          { text:'6 Snatches', log:{ key:'snatchCondB', mode:'weight_only', label:'Snatch (Weight 2)' } }
+        ]},
+        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
+        { title:"Barbell Conditioning C — AMRAP 5'", progression:false, completionType:'amrapScore', repsPerRound:10, lines:[
+          'Run 200m',
+          { text:'9 Snatches', log:{ key:'snatchCondC', mode:'weight_only', label:'Snatch (Weight 3)' } }
+        ]}
+      ],
+      notesRx:"Weight 1/2/3 are progressively heavier across the three AMRAPs — suggested loads below build from roughly 50% up to 70% of your estimated Snatch 1RM. Each AMRAP is scored independently; going out too hot on A will cost you on C.",
+      strengthLifts:[]
     }
   ];
 
@@ -4827,6 +4853,13 @@
       out.dbZPress = roundNum(estimateMaxKg('dbZPressAcc', strLevelTue3));
       out.bentRow = roundNum(estimateMaxKg('bentOverRowAcc', strLevelTue3));
       out.devilPress = profile.gender === 'f' ? 15 : 22.5;
+    } else if(wod.id === 'wed3'){
+      var snatchLevel = Math.max(1, Math.min(5, Math.round(getSkillScore('oly','snatch'))));
+      var est1RMSnatch = estimateMaxKg('snatch', snatchLevel);
+      out.snatch = roundNum(est1RMSnatch * 0.65);
+      out.snatchCondA = roundNum(est1RMSnatch * 0.5);
+      out.snatchCondB = roundNum(est1RMSnatch * 0.6);
+      out.snatchCondC = roundNum(est1RMSnatch * 0.7);
     }
     // Generic fallback for any WOD without a hand-coded branch above (e.g. new WODs added via
     // the external JSON file) — any loggable key that happens to match a real tracked lift still
@@ -4923,6 +4956,11 @@
       blockNotes.push({ name:'DB Z-Press', cat:'strength', note:'~' + s.dbZPress + 'kg/hand — strict pressing under tempo control, no leg drive to cheat with' });
       blockNotes.push({ name:'Bent-Over DB Row', cat:'strength', note:'~' + s.bentRow + 'kg/hand — pulling strength balancing the press' });
       blockNotes.push({ name:'Devil Press + Cals', cat:'cond', note:'~' + s.devilPress + 'kg/DB — full-body engine work under a real time cap' });
+    } else if(wod.id === 'wed3'){
+      blockNotes.push({ name:'Snatch Complex', cat:'oly', note:'~' + s.snatch + 'kg to start (65% 1RM), building — the piece that actually moves your Snatch score' });
+      blockNotes.push({ name:'AMRAP A — Run + Snatches (~50%)', cat:'cond', note:'~' + s.snatchCondA + 'kg, lighter for the fastest pace' });
+      blockNotes.push({ name:'AMRAP B — Run + Snatches (~60%)', cat:'cond', note:'~' + s.snatchCondB + 'kg, moderate load under building fatigue' });
+      blockNotes.push({ name:'AMRAP C — Run + Snatches (~70%)', cat:'oly', note:'~' + s.snatchCondC + 'kg — heaviest of the three, real technical demand fatigued' });
     }
     if(blockNotes.length === 0){
       // Generic fallback for a new WOD with no hand-coded breakdown yet — still gives some
