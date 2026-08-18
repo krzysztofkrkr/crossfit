@@ -724,7 +724,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof · Build: 2026-08-17</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-18</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +750,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof · Build: 2026-08-17</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-18</p>
   </footer>
 </div>
 
@@ -1985,7 +1985,7 @@
         ]},
         { title:"Intervals — Every 4 min for 16' (4 rounds, 2 min cap per set)", progression:false, completionType:'roundsAndDifficulty', maxRounds:4, lines:[
           { text:'10 Double Dumbbell Devil Press', log:{ key:'devilPress', mode:'weight_reps', label:'Devil Press (per DB)', rounds:4 } },
-          '15/10 Cal Row/Bike/Ski'
+          { text:'15/10 Cal Row/Bike/Ski', log:{ key:'devilPressCals', mode:'count_only', label:'Cals', rounds:4, unit:'cals' } }
         ]}
       ],
       notesRx:"Rx: DB 2×22.5/15kg · 15/10 cals. Intermediate: DB 2×17.5/10kg · 12/8 cals. Both A and B in the tempo superset must fit within 1 minute at the prescribed tempo — if you can't, the load is too heavy for today.",
@@ -2124,6 +2124,10 @@
           inputsHtml =
             '<input type="number" min="0" step="1" id="' + idBase + '-t" placeholder="sec" class="inline-num">' +
             '<span class="unit-label">sec</span>' + roundsNote;
+        } else if(L.mode === 'count_only'){
+          inputsHtml =
+            '<input type="number" min="0" step="1" id="' + idBase + '-c" placeholder="' + (L.unit || 'count') + '" class="inline-num">' +
+            '<span class="unit-label">' + (L.unit || 'count') + '</span>' + roundsNote;
         }
 
         var breakdownHtml = '';
@@ -2146,6 +2150,10 @@
               roundRows += '<div class="round-row"><span class="round-row-label">Rd ' + ri + '</span>' +
                 '<input type="number" min="0" step="1" id="' + rid + '-t" placeholder="sec" class="inline-num">' +
                 '<span class="unit-label">sec</span></div>';
+            } else if(L.mode === 'count_only'){
+              roundRows += '<div class="round-row"><span class="round-row-label">Rd ' + ri + '</span>' +
+                '<input type="number" min="0" step="1" id="' + rid + '-c" placeholder="' + (L.unit || 'count') + '" class="inline-num">' +
+                '<span class="unit-label">' + (L.unit || 'count') + '</span></div>';
             }
           }
           breakdownHtml =
@@ -5416,6 +5424,10 @@
         var tEl2 = document.getElementById(rid + '-t');
         var t = tEl2 ? parseInt(tEl2.value, 10) : NaN;
         if(t > 0){ any = true; totalReps += t; parts.push('Rd' + i + ': ' + t + 's'); }
+      } else if(mode === 'count_only'){
+        var cEl2 = document.getElementById(rid + '-c');
+        var c = cEl2 ? parseFloat(cEl2.value) : NaN;
+        if(c > 0){ any = true; totalReps += c; parts.push('Rd' + i + ': ' + c); }
       }
     }
     if(!any) return null;
@@ -5531,6 +5543,8 @@
               }
             } else if(spec.mode === 'time_only'){
               lines.push(spec.label + ': ' + breakdown.parts.join(', ') + ' — total ' + breakdown.totalReps + ' seconds held.');
+            } else if(spec.mode === 'count_only'){
+              lines.push(spec.label + ': ' + breakdown.parts.join(', ') + ' — total ' + breakdown.totalReps + ' ' + (spec.unit || '') + '.');
             }
             return;
           }
@@ -5565,6 +5579,10 @@
             var tEl = document.getElementById(idBase + '-t');
             var tVal = parseInt(tEl.value, 10);
             if(tVal > 0){ lines.push(spec.label + ': held ' + tVal + ' seconds' + roundsSuffix + '.'); }
+          } else if(spec.mode === 'count_only'){
+            var cEl = document.getElementById(idBase + '-c');
+            var cVal = parseFloat(cEl.value);
+            if(cVal > 0){ lines.push(spec.label + ': ' + cVal + ' ' + (spec.unit || '') + roundsSuffix + '.'); }
           }
         });
 
