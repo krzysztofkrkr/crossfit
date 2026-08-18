@@ -391,6 +391,13 @@
   .tag.cat-cond{ color: var(--cond); background: var(--cond-dim); }
   .tag.type-skill, .tag.type-capacity{ color: var(--chalk); background: rgba(237,234,226,0.12); }
   .wcard-name{ font-family: var(--body); font-weight:700; font-size: 15px; color: var(--chalk); }
+  .wod-done-badge{ font-family: var(--mono); font-size: 11px; font-weight:700; color: var(--cond); }
+  .wod-reset-btn{
+    background:none; border: 1px solid var(--card-line); color: var(--chalk-faint);
+    border-radius: 10px; font-size: 10px; padding: 2px 7px; cursor:pointer;
+    font-family: var(--mono); transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .wod-reset-btn:hover{ color: var(--red); border-color: var(--red); }
   .wcard-summary{ font-family: var(--body); font-size: 13px; color: var(--chalk-dim); line-height:1.4; }
   .wcard-chevron{ font-family: var(--mono); color: var(--chalk-dim); font-size: 18px; transition: transform 0.2s ease; flex-shrink:0; }
   .wcard.open .wcard-chevron{ transform: rotate(180deg); }
@@ -3672,7 +3679,13 @@
 
   function recentlyCompletedHtml(){
     if(trainingHistory.length === 0) return '';
-    var recent = trainingHistory.slice().reverse().slice(0, 8);
+    // "Done Trainings" should show actual completed sessions — not Skill Standards self-reports
+    // or Can't/Already-Have adjustments, which are skill-tracking actions, not trainings.
+    var trainingsOnly = trainingHistory.filter(function(e){
+      return e.label.indexOf('Self-Report:') !== 0 && e.label.indexOf("Can't Actually Do This:") !== 0 && e.label.indexOf('I Already Have This:') !== 0;
+    });
+    if(trainingsOnly.length === 0) return '';
+    var recent = trainingsOnly.slice().reverse().slice(0, 8);
     var rows = recent.map(function(e){
       var catTags = e.categories.map(function(c){ return '<span class="tag cat-' + c + '">' + CATEGORY_LABEL[c] + '</span>'; }).join('');
       var xpText = formatHistoryXp(e.xp);
@@ -4212,6 +4225,11 @@
      actually left to do, rather than showing sessions you've already finished. */
   function isWodCompleted(wod){
     return trainingHistory.some(function(e){ return e.label === wod.day + ' WOD'; });
+  }
+
+  async function resetWodHistory(wodDay){
+    trainingHistory = trainingHistory.filter(function(e){ return e.label !== wodDay + ' WOD'; });
+    await saveAll();
   }
 
   function trendSparklineSvg(cat, entries){
@@ -5178,7 +5196,7 @@
         '<div class="wcard-head" data-toggle="' + cardId + '" tabindex="0" role="button" aria-expanded="' + isOpen + '">' +
           '<div class="wcard-titles">' +
             '<div class="wcard-tags">' + tagsHtml + '</div>' +
-            '<div class="wcard-name">' + wod.day + '</div>' +
+            '<div class="wcard-name">' + wod.day + (isWodCompleted(wod) ? ' <span class="wod-done-badge">✓ Done</span> <button class="wod-reset-btn" data-reset-day="' + wod.day.replace(/"/g,'&quot;') + '" title="Remove from history and log again">↺ Reset</button>' : '') + '</div>' +
             '<div class="wcard-summary">' + wod.summary + '</div>' +
           '</div>' +
           '<span class="wcard-chevron">▾</span>' +
@@ -5406,6 +5424,15 @@
   }
 
   function bindWeeklyLogButtons(){
+    app.querySelectorAll('.wod-reset-btn').forEach(function(btn){
+      btn.addEventListener('click', async function(e){
+        e.stopPropagation();
+        var day = btn.getAttribute('data-reset-day');
+        await resetWodHistory(day);
+        renderDashboard(false, []);
+        showToast('Cleared — log "' + day + '" fresh whenever you\'re ready.');
+      });
+    });
     WEEKLY_WODS.forEach(function(wod){
       // Rx/Intermediate/Other toggle behavior for the partner WOD, if this day has one
       if(wod.partnerWod){
@@ -5685,11 +5712,8 @@
 
     var overall = overallLevel();
     var vesselsHtml = CATEGORY_ORDER.map(function(cat){ return vesselRowHtml(cat, justUpdatedCats.indexOf(cat)!==-1); }).join('');
-    var pendingWods = WEEKLY_WODS.filter(function(wod){ return !isWodCompleted(wod); });
-    var completedWodCount = WEEKLY_WODS.length - pendingWods.length;
-    var weeklyHtml = pendingWods.length
-      ? pendingWods.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('')
-      : '<p class="section-sub" style="text-align:center; padding:16px 0 4px;">✓ All caught up — every WOD here has been logged. Add a new one when you\'re ready for it.</p>';
+    var completedWodCount = WEEKLY_WODS.filter(isWodCompleted).length;
+    var weeklyHtml = WEEKLY_WODS.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('');
     var workoutCardsHtml = CATEGORY_ORDER.map(workoutCardHtml).join('');
 
     app.innerHTML =
