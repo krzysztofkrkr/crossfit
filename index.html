@@ -724,7 +724,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-23-v2</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-24-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +750,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-23-v2</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-24-v2</p>
   </footer>
 </div>
 
@@ -1025,7 +1025,10 @@
     dbZPressAcc:{ name:'Double DB Z-Press (per hand)', category:'strength', m:[0.1,0.15,0.2,0.25,0.3], f:[0.07,0.1,0.14,0.18,0.22] },
     tricepExtAcc:{ name:'Overhead Tricep Extension (cable)', category:'strength', m:[0.15,0.2,0.28,0.35,0.42], f:[0.1,0.15,0.2,0.25,0.3] },
     latPulldownAcc:{ name:'Seated Cable Pulldown', category:'strength', m:[0.3,0.45,0.6,0.75,0.9], f:[0.22,0.32,0.42,0.52,0.62] },
-    slamballCleanAcc:{ name:'Slamball Clean', category:'strength', m:[0.15,0.2,0.25,0.3,0.35], f:[0.1,0.14,0.18,0.22,0.26] }
+    slamballCleanAcc:{ name:'Slamball Clean', category:'strength', m:[0.15,0.2,0.25,0.3,0.35], f:[0.1,0.14,0.18,0.22,0.26] },
+    ezBarCurlAcc:{ name:'EZ Bar Curl (total bar)', category:'strength', m:[0.15,0.2,0.27,0.35,0.45], f:[0.1,0.15,0.2,0.25,0.32] },
+    inclineDbPressAcc:{ name:'Incline DB Press (per hand)', category:'strength', m:[0.18,0.26,0.35,0.45,0.55], f:[0.12,0.18,0.24,0.3,0.37] },
+    chestFlyeAcc:{ name:'DB Chest Flye (per hand)', category:'strength', m:[0.08,0.12,0.16,0.2,0.25], f:[0.06,0.09,0.12,0.15,0.19] }
   };
 
   function bodyweightKg(){ return profile.weight; }
@@ -1951,6 +1954,39 @@
         ]}
       ],
       notesRx:"Score is total calories accumulated across all three windows combined — log each window's cals separately and they'll add up automatically in your training history. Using Intermediate (17.5/10kg) as your default here — this block is a pacing/volume test, not a strength test, so lighter and unbroken beats heavier with long pauses. Rx (22.5/15kg) noted for reference only.\nHeart rate targets (your real Garmin zones): Window A (6 min) — Aerobowa to low Progowa, ~132-155 bpm. Window B (4 min) — Progowa, ~151-169 bpm. Window C (3 min) — high Progowa into Maksymalna, ~160-175+ bpm. In the 90-sec rests, aim to drop back to Spokojna (113-131 bpm) before the next window starts.\nThe barbell ladder gets heavier as reps drop — per-round targets are on the log form (30kg → 50kg across the 6 sets), grounded in your real recent performance, not just a formula.",
+      strengthLifts:[]
+    },
+    {
+      id:'chestbicep1', day:'Chest & Biceps (Post-Snatch Recovery, ~55 min)',
+      categories:['strength'],
+      summary:"A chest and biceps day deliberately built around pressing and elbow flexion, not pulling or grip — gives yesterday's snatch-taxed back and grip a genuine break while still training hard.",
+      blocks:[
+        { title:'Warm-Up (5 min)', progression:false, completionType:'doneNotDone', lines:[
+          '2 min arm circles + band pull-aparts',
+          '10 Push-Ups (easy pace)',
+          '15 Empty EZ Bar Curls (light, just to prime the pattern)'
+        ]},
+        { title:'Chest — Strength (4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'Barbell Bench Press × 8 @ moderate load', log:{ key:'bench', mode:'weight_reps', label:'Barbell Bench Press', rounds:4 } }
+        ]},
+        { title:'Chest — Volume (3 Rounds)', progression:false, rounds:3, lines:[
+          { text:'Incline DB Press × 10', log:{ key:'inclineDbPress', mode:'weight_only', label:'Incline DB Press' } },
+          { text:'DB Chest Flye × 12', log:{ key:'chestFlye', mode:'weight_only', label:'Chest Flye' } }
+        ]},
+        { title:'Biceps — EZ Bar (3 Rounds)', progression:false, rounds:3, lines:[
+          { text:'EZ Bar Curl × 10', log:{ key:'ezBarCurl', mode:'weight_reps', label:'EZ Bar Curl' } },
+          { text:'EZ Bar Preacher/Spider Curl × 12', log:{ key:'ezBarPreacher', mode:'weight_only', label:'EZ Bar Preacher Curl' } }
+        ]},
+        { title:'Finisher — Chest/Biceps Superset (3 Rounds)', progression:false, rounds:3, lines:[
+          '15 Push-Ups',
+          { text:'EZ Bar 21s (7 bottom-half + 7 top-half + 7 full reps)', log:{ key:'ezBar21s', mode:'weight_only', label:'EZ Bar 21s' } }
+        ]},
+        { title:'Cool-Down (5 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Doorway chest stretch — 30 sec per side',
+          'Bicep/forearm stretch — 20-30 sec per arm'
+        ]}
+      ],
+      notesRx:"Deliberately no rowing, no pull-ups, no heavy carries today — grip and back get the day off after yesterday's snatch work. EZ bar is used for every biceps movement specifically to keep wrist angle comfortable under volume. Push through the pump on the finisher; weight should be light enough that 21s stays genuinely unbroken.",
       strengthLifts:[]
     }
   ];
@@ -4825,6 +4861,16 @@
       var snatchLevelLadder = Math.max(1, Math.min(5, Math.round(getSkillScore('oly','snatch'))));
       out.snatchLadder = 30; // grounded in real demonstrated performance (65kg handled in a similar recent complex), not the underestimated algorithmic 1RM — see round-by-round suggestions on the log form
       out.dbSnatchPartner = profile.gender === 'f' ? 10 : 17.5; // Intermediate — this WOD's conditioning is a volume/pacing test, not a strength test
+    } else if(wod.id === 'chestbicep1'){
+      var benchLevelCB = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','bench'))));
+      out.bench = roundNum(estimateMaxKg('bench', benchLevelCB) * 0.7);
+      var strLevelCB = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
+      out.inclineDbPress = roundNum(estimateMaxKg('inclineDbPressAcc', strLevelCB));
+      out.chestFlye = roundNum(estimateMaxKg('chestFlyeAcc', strLevelCB));
+      var bicepLevelCB = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
+      out.ezBarCurl = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelCB));
+      out.ezBarPreacher = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelCB) * 0.8);
+      out.ezBar21s = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelCB) * 0.6);
     } else if(wod.id === 'wed3'){
       var snatchLevel = Math.max(1, Math.min(5, Math.round(getSkillScore('oly','snatch'))));
       var est1RMSnatch = estimateMaxKg('snatch', snatchLevel);
@@ -4935,6 +4981,12 @@
     } else if(wod.id === 'snatch2'){
       blockNotes.push({ name:'Snatch Ladder (6-5-4-3-2-1)', cat:'oly', note:'30kg → 50kg across the 6 sets (per-round targets on the log form), building unbroken as reps drop — real technical demand under fatigue' });
       blockNotes.push({ name:'DB Snatch (Partner Intervals)', cat:'cond', note:'~' + s.dbSnatchPartner + 'kg — synchro pacing with a partner, cals are the real scoring metric' });
+    } else if(wod.id === 'chestbicep1'){
+      blockNotes.push({ name:'Bench Press @ 70%', cat:'strength', note:'~' + s.bench + 'kg — real chest strength, no grip demand to compete with yesterday' });
+      blockNotes.push({ name:'Incline DB Press', cat:'strength', note:'~' + s.inclineDbPress + 'kg/hand — upper chest volume' });
+      blockNotes.push({ name:'DB Chest Flye', cat:'strength', note:'~' + s.chestFlye + 'kg/hand — isolation, stretch under control' });
+      blockNotes.push({ name:'EZ Bar Curl', cat:'strength', note:'~' + s.ezBarCurl + 'kg total — main bicep volume, easier on the wrists than a straight bar' });
+      blockNotes.push({ name:'EZ Bar Preacher/21s', cat:'strength', note:'~' + s.ezBarPreacher + 'kg / ~' + s.ezBar21s + 'kg — finishing pump work, light enough to stay unbroken' });
     } else if(wod.id === 'wed3'){
       blockNotes.push({ name:'Snatch Complex', cat:'oly', note:'~' + s.snatch + 'kg to start (65% 1RM), building — the piece that actually moves your Snatch score' });
       blockNotes.push({ name:'AMRAP A — Run + Snatches (~50%)', cat:'cond', note:'~' + s.snatchCondA + 'kg, lighter for the fastest pace' });
