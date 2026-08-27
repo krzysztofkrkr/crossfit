@@ -724,7 +724,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-25</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-27</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +750,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-25</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-27</p>
   </footer>
 </div>
 
@@ -1947,6 +1947,37 @@
         ]}
       ],
       notesRx:"The A/B strength block alternates every 90 sec — A twice, B twice, repeating for 8 total rounds (4 of each). RPE 7 on the primary lift (pull-up/bench) should feel like genuine work; RPE 5 on the accessory (ring rows/floor press) should feel controlled, not maxed. Conditioning cal targets are Rx/Scaled by gender (36/28, 24/18, 12/9) — pick whichever matches how you're scaling the rest of the piece.",
+      strengthLifts:[]
+    },
+    {
+      id:'splitjerk1', day:'Split Jerk Technical + Conditioning',
+      categories:['oly','cond'],
+      summary:"Marked footwork drills into a loaded Split Jerk accumulation block (real progressive loading, not a flat weight), then two 7-minute AMRAPs — thrusters/pull-ups/box jumps, then deadlifts/pressing/sit-ups.",
+      blocks:[
+        { title:'Weightlifting Skills — Split Jerk: Phase 1, Footwork + Marks (~3 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Mark your exact split foot position with chalk/tape — measure once, keep it fixed all session',
+          'Split Jumps to the marks, no bar × 2×5 — from dip position, jump and land both feet exactly on the marks'
+        ]},
+        { title:'Phase 2 — Empty Bar Drills (~3 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Jerk Balance × 2×3 — minimal dip, focus on the split entry',
+          'Tall Jerk × 2×2 — from the bar at forehead height, pure foot speed'
+        ]},
+        { title:"Phase 3 — Accumulation (10 min)", progression:true, rounds:6, lines:[
+          { text:'2 Split Jerks from rack, 3 sec pause in the receiving position — valid rep only if both feet land on the marks', log:{ key:'splitJerkAcc', mode:'weight_only', label:'Split Jerk', rounds:6, roundSuggestions:[30,35,40,45,50,55] } }
+        ]},
+        { title:"Conditioning A — AMRAP 7'", progression:false, completionType:'amrapScore', repsPerRound:18, lines:[
+          { text:'4 Barbell Thrusters', log:{ key:'thrusterCond', mode:'weight_only', label:'Thruster' } },
+          '6 Chest-to-Bar / Pull-Ups',
+          '8 Box Jumps'
+        ]},
+        { title:'Rest', progression:false, rest:true, lines:['3 minutes rest'] },
+        { title:"Conditioning B — AMRAP 7'", progression:false, completionType:'amrapScore', repsPerRound:18, lines:[
+          { text:'4 Barbell Deadlifts', log:{ key:'deadliftCond', mode:'weight_only', label:'Deadlift' } },
+          '6 HSPU / Push-Ups',
+          '8 V-Sit-Ups / Sit-Ups'
+        ]}
+      ],
+      notesRx:"Split Jerk accumulation should genuinely build — empty bar to 70% 1RM or RPE 7/10 max, never heavier. A rep only counts if both feet land on your marked positions; speed and precision matter more than the number on the bar. Rx: Thrusters 50/35kg · Deadlift 100/70kg · C2B · HSPU. Intermediate: Thrusters 40/30kg · Deadlift 80/55kg — the far more common choice, and a perfectly good one.",
       strengthLifts:[]
     }
   ];
@@ -4739,7 +4770,11 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'upperbody1'){
+    if(wod.id === 'splitjerk1'){
+      out.splitJerkAcc = 30; // real progression already demonstrated: 30→55kg across 6 sets
+      out.thrusterCond = profile.gender === 'f' ? 30 : 40; // Intermediate default — your usual choice
+      out.deadliftCond = profile.gender === 'f' ? 55 : 80; // Intermediate default
+    } else if(wod.id === 'upperbody1'){
       var pullupLevelUB = Math.max(1, Math.min(5, Math.round(getSkillScore('gym','pullups'))));
       out.weightedPullupUB = roundNum(estimateMaxKg('weightedPullupAcc', pullupLevelUB));
       var benchLevelUB = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','bench'))));
@@ -4871,7 +4906,11 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'upperbody1'){
+    if(wod.id === 'splitjerk1'){
+      blockNotes.push({ name:'Split Jerk Accumulation', cat:'oly', note:'30kg → 55kg across 6 sets (your real recent progression) — precision-focused, feet-on-marks work' });
+      blockNotes.push({ name:'Conditioning A — Thrusters, C2B, Box Jumps', cat:'cond', note:'~' + s.thrusterCond + 'kg — mixed-modal capacity under a clock' });
+      blockNotes.push({ name:'Conditioning B — Deadlift, HSPU, Sit-Ups', cat:'cond', note:'~' + s.deadliftCond + 'kg — posterior chain + pressing capacity fatigued' });
+    } else if(wod.id === 'upperbody1'){
       blockNotes.push({ name:'Weighted Pull-Up @ RPE 7', cat:'gym', note:'~+' + s.weightedPullupUB + 'kg added — real strict pulling strength under load' });
       blockNotes.push({ name:'Bench Press @ RPE 7', cat:'strength', note:'~' + s.bench + 'kg — heavy 5s, not a max test' });
       blockNotes.push({ name:'DB Floor Press', cat:'strength', note:'~' + s.dbFloorPress + 'kg/hand — accessory pressing volume at RPE 5' });
