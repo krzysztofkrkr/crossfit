@@ -724,7 +724,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-27</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-27-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +750,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-27</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-27-v2</p>
   </footer>
 </div>
 
@@ -1029,7 +1029,11 @@
     ezBarCurlAcc:{ name:'EZ Bar Curl (total bar)', category:'strength', m:[0.15,0.2,0.27,0.35,0.45], f:[0.1,0.15,0.2,0.25,0.32] },
     inclineDbPressAcc:{ name:'Incline DB Press (per hand)', category:'strength', m:[0.18,0.26,0.35,0.45,0.55], f:[0.12,0.18,0.24,0.3,0.37] },
     chestFlyeAcc:{ name:'DB Chest Flye (per hand)', category:'strength', m:[0.08,0.12,0.16,0.2,0.25], f:[0.06,0.09,0.12,0.15,0.19] },
-    dbFloorPressAcc:{ name:'DB Floor Press (per hand)', category:'strength', m:[0.18,0.25,0.33,0.42,0.5], f:[0.12,0.18,0.24,0.3,0.36] }
+    dbFloorPressAcc:{ name:'DB Floor Press (per hand)', category:'strength', m:[0.18,0.25,0.33,0.42,0.5], f:[0.12,0.18,0.24,0.3,0.36] },
+    hammerCurlAcc:{ name:'Hammer Curl (per hand)', category:'strength', m:[0.12,0.18,0.24,0.3,0.38], f:[0.08,0.12,0.16,0.2,0.25] },
+    ropePushdownAcc:{ name:'Rope Pushdown (total)', category:'strength', m:[0.15,0.22,0.3,0.4,0.5], f:[0.1,0.15,0.2,0.27,0.34] },
+    tricepKickbackAcc:{ name:'Tricep Kickback (per hand)', category:'strength', m:[0.06,0.09,0.12,0.16,0.2], f:[0.04,0.06,0.09,0.12,0.15] },
+    ezBarSkullCrusherAcc:{ name:'EZ Bar Skull Crusher (total)', category:'strength', m:[0.12,0.16,0.22,0.28,0.35], f:[0.08,0.11,0.15,0.19,0.24] }
   };
 
   function bodyweightKg(){ return profile.weight; }
@@ -1978,6 +1982,46 @@
         ]}
       ],
       notesRx:"Split Jerk accumulation should genuinely build — empty bar to 70% 1RM or RPE 7/10 max, never heavier. A rep only counts if both feet land on your marked positions; speed and precision matter more than the number on the bar. Rx: Thrusters 50/35kg · Deadlift 100/70kg · C2B · HSPU. Intermediate: Thrusters 40/30kg · Deadlift 80/55kg — the far more common choice, and a perfectly good one.",
+      strengthLifts:[]
+    },
+    {
+      id:'armscore1', day:'Arms & Core (Trap/Chest Rest Day, ~55 min)',
+      categories:['strength'],
+      summary:"Biceps, triceps, and core — deliberately built around zero overhead pressing, zero rowing/shrugging, and zero heavy horizontal pressing, so sore traps and chest get a genuine day off.",
+      blocks:[
+        { title:'Warm-Up (5 min)', progression:false, completionType:'doneNotDone', lines:[
+          '2 min easy arm circles + wrist circles',
+          '15 Empty EZ Bar Curls (light, just to prime the pattern)'
+        ]},
+        { title:'Mobility (5 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Wrist flexor/extensor stretch — 20-30 sec per side',
+          'Seated thoracic rotations — 8 per side (gentle, no neck loading)',
+          'Cat-Cow — 8-10 slow reps'
+        ]},
+        { title:'Biceps — EZ Bar (15 min, 4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'EZ Bar Curl × 10', log:{ key:'ezBarCurl', mode:'weight_reps', label:'EZ Bar Curl', rounds:4 } },
+          { text:'Hammer Curl × 12 (DB)', log:{ key:'hammerCurl', mode:'weight_only', label:'Hammer Curl' } }
+        ]},
+        { title:'Biceps Finisher', progression:false, lines:[
+          { text:'EZ Bar 21s (7 bottom-half + 7 top-half + 7 full reps)', log:{ key:'ezBar21s', mode:'weight_only', label:'EZ Bar 21s' } }
+        ]},
+        { title:'Triceps — No Overhead (15 min, 3 Rounds)', progression:false, rounds:3, lines:[
+          { text:'Rope Pushdown × 12', log:{ key:'ropePushdown', mode:'weight_only', label:'Rope Pushdown' } },
+          { text:'EZ Bar Skull Crusher × 10 (lying, elbows in — no neck involvement)', log:{ key:'ezBarSkullCrusher', mode:'weight_reps', label:'EZ Bar Skull Crusher' } },
+          { text:'Tricep Kickback × 12 per arm', log:{ key:'tricepKickback', mode:'weight_only', label:'Tricep Kickback' } }
+        ]},
+        { title:'Core — No Chest/Neck Load (10 min, 3 Rounds)', progression:false, rounds:3, lines:[
+          '30-45 sec Plank Hold',
+          '10 per side Dead Bug (slow, controlled)',
+          '20-30 sec Hollow Hold'
+        ]},
+        { title:'Cool-Down (5 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Bicep/forearm stretch — 20-30 sec per arm',
+          'Gentle wrist stretch — 20 sec per side',
+          'Child\'s pose — 30 sec (arms forward, no neck strain)'
+        ]}
+      ],
+      notesRx:"Nothing overhead, nothing rowed, nothing heavy horizontal today — traps and chest get a real break. If anything here starts pulling noticeably into the sore areas (skull crushers can sometimes tug at the chest if elbows flare), drop the weight or skip that specific movement rather than pushing through.",
       strengthLifts:[]
     }
   ];
@@ -4770,7 +4814,16 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'splitjerk1'){
+    if(wod.id === 'armscore1'){
+      var bicepLevelAC = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
+      out.ezBarCurl = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelAC));
+      out.hammerCurl = roundNum(estimateMaxKg('hammerCurlAcc', bicepLevelAC));
+      out.ezBar21s = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelAC) * 0.6);
+      var strLevelAC = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
+      out.ropePushdown = roundNum(estimateMaxKg('ropePushdownAcc', strLevelAC));
+      out.ezBarSkullCrusher = roundNum(estimateMaxKg('ezBarSkullCrusherAcc', strLevelAC));
+      out.tricepKickback = roundNum(estimateMaxKg('tricepKickbackAcc', strLevelAC));
+    } else if(wod.id === 'splitjerk1'){
       out.splitJerkAcc = 30; // real progression already demonstrated: 30→55kg across 6 sets
       out.thrusterCond = profile.gender === 'f' ? 30 : 40; // Intermediate default — your usual choice
       out.deadliftCond = profile.gender === 'f' ? 55 : 80; // Intermediate default
@@ -4906,7 +4959,12 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'splitjerk1'){
+    if(wod.id === 'armscore1'){
+      blockNotes.push({ name:'EZ Bar Curl + Hammer Curl', cat:'strength', note:'~' + s.ezBarCurl + 'kg / ~' + s.hammerCurl + 'kg — two angles, same muscle, no trap or chest involvement' });
+      blockNotes.push({ name:'EZ Bar 21s', cat:'strength', note:'~' + s.ezBar21s + 'kg — finishing pump, light enough to stay unbroken' });
+      blockNotes.push({ name:'Rope Pushdown + Skull Crusher + Kickback', cat:'strength', note:'~' + s.ropePushdown + 'kg / ~' + s.ezBarSkullCrusher + 'kg / ~' + s.tricepKickback + 'kg — full tricep volume, zero overhead position' });
+      blockNotes.push({ name:'Core Circuit', cat:'strength', note:'midline work with no chest or neck loading at all' });
+    } else if(wod.id === 'splitjerk1'){
       blockNotes.push({ name:'Split Jerk Accumulation', cat:'oly', note:'30kg → 55kg across 6 sets (your real recent progression) — precision-focused, feet-on-marks work' });
       blockNotes.push({ name:'Conditioning A — Thrusters, C2B, Box Jumps', cat:'cond', note:'~' + s.thrusterCond + 'kg — mixed-modal capacity under a clock' });
       blockNotes.push({ name:'Conditioning B — Deadlift, HSPU, Sit-Ups', cat:'cond', note:'~' + s.deadliftCond + 'kg — posterior chain + pressing capacity fatigued' });
