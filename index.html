@@ -724,7 +724,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-27-v2</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-08-31</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +750,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-27-v2</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-08-31</p>
   </footer>
 </div>
 
@@ -1033,7 +1033,9 @@
     hammerCurlAcc:{ name:'Hammer Curl (per hand)', category:'strength', m:[0.12,0.18,0.24,0.3,0.38], f:[0.08,0.12,0.16,0.2,0.25] },
     ropePushdownAcc:{ name:'Rope Pushdown (total)', category:'strength', m:[0.15,0.22,0.3,0.4,0.5], f:[0.1,0.15,0.2,0.27,0.34] },
     tricepKickbackAcc:{ name:'Tricep Kickback (per hand)', category:'strength', m:[0.06,0.09,0.12,0.16,0.2], f:[0.04,0.06,0.09,0.12,0.15] },
-    ezBarSkullCrusherAcc:{ name:'EZ Bar Skull Crusher (total)', category:'strength', m:[0.12,0.16,0.22,0.28,0.35], f:[0.08,0.11,0.15,0.19,0.24] }
+    ezBarSkullCrusherAcc:{ name:'EZ Bar Skull Crusher (total)', category:'strength', m:[0.12,0.16,0.22,0.28,0.35], f:[0.08,0.11,0.15,0.19,0.24] },
+    backRackReverseLungeAcc:{ name:'Back Rack Reverse Lunge (per leg)', category:'strength', m:[0.2,0.3,0.4,0.5,0.6], f:[0.15,0.22,0.3,0.37,0.45] },
+    dbBenchPressAcc:{ name:'DB Bench Press (per hand)', category:'strength', m:[0.2,0.28,0.38,0.48,0.58], f:[0.14,0.2,0.27,0.34,0.41] }
   };
 
   function bodyweightKg(){ return profile.weight; }
@@ -1933,95 +1935,27 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
-      id:'upperbody1', day:'Mixed Strength — Upper Body + Descending Chipper',
+      id:'lungebench1', day:'Mixed Strength (Lunges + DB Bench) + Partner Conditioning',
       categories:['strength','cond'],
-      summary:"An 8-round alternating pulling/pressing superset (weighted pull-up + ring rows, bench press + DB floor press), then a 15-minute descending chipper of KB swings, cal bike, and double-unders.",
+      summary:"A 5-stage ascending pyramid pairing Back Rack Reverse Lunges with DB Bench Press, then a partner relay AMRAP where you can't hand off until you clear the full double-under/deadlift/squat clean/thruster sequence.",
       blocks:[
-        { title:"Mixed Strength — Upper Body (Every 90 sec for 12', 8 rounds, alternating A-B)", progression:true, lines:[
-          { text:'A: 5 Weighted Pull-Up/Strict Pull-Ups @ RPE 7/10 + 10 Ring Rows @ RPE 5/10', log:{ key:'weightedPullupUB', mode:'weight_only', label:'Weighted Pull-Up (added)', rounds:4 } },
-          { text:'B: 5 Bench Press @ RPE 7/10 + 10 DB Floor Press @ RPE 5/10', log:{ key:'bench', mode:'weight_reps', label:'Bench Press', rounds:4 } },
-          { text:'DB Floor Press weight (the "+10" part of B)', log:{ key:'dbFloorPress', mode:'weight_only', label:'DB Floor Press' } },
-          'Direct superset — 5+10 reps inside each 90 sec window, rest whatever time remains.'
+        { title:'Warm-Up (partial — continue whatever came before this)', progression:false, completionType:'doneNotDone', lines:[
+          '10 Scapular Push-Ups',
+          '6 Push-Ups with a 1 sec pause at the bottom'
         ]},
-        { title:'Conditioning — For Time (15 min cap)', progression:false, completionType:'roundsAndDifficulty', maxRounds:3, lines:[
-          { text:'KB Swing weight (same across all 3 rounds)', log:{ key:'kbSwingUB', mode:'weight_only', label:'KB Swing' } },
-          'Round 1: 42 KB Swings, 36/28 Cal Bike, 120 Double-Unders',
-          'Round 2: 30 KB Swings, 24/18 Cal Bike, 80 Double-Unders',
-          'Round 3: 18 KB Swings, 12/9 Cal Bike, 40 Double-Unders'
+        { title:"Mixed Strength — Back Rack Reverse Lunges + DB Bench Press (Pyramid, new set every 2'30\")", progression:true, rounds:5, lines:[
+          { text:'Back Rack Reverse Lunge, 12+12 → 4+4 reps as RPE climbs (5→6→7→8→8+/10)', log:{ key:'reverseLungeBR', mode:'weight_only', label:'Reverse Lunge', rounds:5, roundSuggestions:[30,35,42.5,47.5,55] } },
+          { text:'DB Bench Press, matching rep scheme each set', log:{ key:'dbBenchPress', mode:'weight_only', label:'DB Bench Press', rounds:5, roundSuggestions:[27.5,35,40,45,52.5] } }
+        ]},
+        { title:"Partner Conditioning — AMRAP 15' (relay, \"you go I go\")", progression:false, completionType:'amrapScore', repsPerRound:48, lines:[
+          '30 Double-Unders',
+          { text:'9 Double DB Deadlifts', log:{ key:'dbComplexPartner', mode:'weight_only', label:'DB Complex (Deadlift/Clean/Thruster)' } },
+          '6 Double DB Hang Squat Cleans',
+          '3 Double DB Thrusters',
+          'No handoff to your partner until you clear Double-Unders + the full 9-6-3 sequence'
         ]}
       ],
-      notesRx:"The A/B strength block alternates every 90 sec — A twice, B twice, repeating for 8 total rounds (4 of each). RPE 7 on the primary lift (pull-up/bench) should feel like genuine work; RPE 5 on the accessory (ring rows/floor press) should feel controlled, not maxed. Conditioning cal targets are Rx/Scaled by gender (36/28, 24/18, 12/9) — pick whichever matches how you're scaling the rest of the piece.",
-      strengthLifts:[]
-    },
-    {
-      id:'splitjerk1', day:'Split Jerk Technical + Conditioning',
-      categories:['oly','cond'],
-      summary:"Marked footwork drills into a loaded Split Jerk accumulation block (real progressive loading, not a flat weight), then two 7-minute AMRAPs — thrusters/pull-ups/box jumps, then deadlifts/pressing/sit-ups.",
-      blocks:[
-        { title:'Weightlifting Skills — Split Jerk: Phase 1, Footwork + Marks (~3 min)', progression:false, completionType:'doneNotDone', lines:[
-          'Mark your exact split foot position with chalk/tape — measure once, keep it fixed all session',
-          'Split Jumps to the marks, no bar × 2×5 — from dip position, jump and land both feet exactly on the marks'
-        ]},
-        { title:'Phase 2 — Empty Bar Drills (~3 min)', progression:false, completionType:'doneNotDone', lines:[
-          'Jerk Balance × 2×3 — minimal dip, focus on the split entry',
-          'Tall Jerk × 2×2 — from the bar at forehead height, pure foot speed'
-        ]},
-        { title:"Phase 3 — Accumulation (10 min)", progression:true, rounds:6, lines:[
-          { text:'2 Split Jerks from rack, 3 sec pause in the receiving position — valid rep only if both feet land on the marks', log:{ key:'splitJerkAcc', mode:'weight_only', label:'Split Jerk', rounds:6, roundSuggestions:[30,35,40,45,50,55] } }
-        ]},
-        { title:"Conditioning A — AMRAP 7'", progression:false, completionType:'amrapScore', repsPerRound:18, lines:[
-          { text:'4 Barbell Thrusters', log:{ key:'thrusterCond', mode:'weight_only', label:'Thruster' } },
-          '6 Chest-to-Bar / Pull-Ups',
-          '8 Box Jumps'
-        ]},
-        { title:'Rest', progression:false, rest:true, lines:['3 minutes rest'] },
-        { title:"Conditioning B — AMRAP 7'", progression:false, completionType:'amrapScore', repsPerRound:18, lines:[
-          { text:'4 Barbell Deadlifts', log:{ key:'deadliftCond', mode:'weight_only', label:'Deadlift' } },
-          '6 HSPU / Push-Ups',
-          '8 V-Sit-Ups / Sit-Ups'
-        ]}
-      ],
-      notesRx:"Split Jerk accumulation should genuinely build — empty bar to 70% 1RM or RPE 7/10 max, never heavier. A rep only counts if both feet land on your marked positions; speed and precision matter more than the number on the bar. Rx: Thrusters 50/35kg · Deadlift 100/70kg · C2B · HSPU. Intermediate: Thrusters 40/30kg · Deadlift 80/55kg — the far more common choice, and a perfectly good one.",
-      strengthLifts:[]
-    },
-    {
-      id:'armscore1', day:'Arms & Core (Trap/Chest Rest Day, ~55 min)',
-      categories:['strength'],
-      summary:"Biceps, triceps, and core — deliberately built around zero overhead pressing, zero rowing/shrugging, and zero heavy horizontal pressing, so sore traps and chest get a genuine day off.",
-      blocks:[
-        { title:'Warm-Up (5 min)', progression:false, completionType:'doneNotDone', lines:[
-          '2 min easy arm circles + wrist circles',
-          '15 Empty EZ Bar Curls (light, just to prime the pattern)'
-        ]},
-        { title:'Mobility (5 min)', progression:false, completionType:'doneNotDone', lines:[
-          'Wrist flexor/extensor stretch — 20-30 sec per side',
-          'Seated thoracic rotations — 8 per side (gentle, no neck loading)',
-          'Cat-Cow — 8-10 slow reps'
-        ]},
-        { title:'Biceps — EZ Bar (15 min, 4 Rounds)', progression:true, rounds:4, lines:[
-          { text:'EZ Bar Curl × 10', log:{ key:'ezBarCurl', mode:'weight_reps', label:'EZ Bar Curl', rounds:4 } },
-          { text:'Hammer Curl × 12 (DB)', log:{ key:'hammerCurl', mode:'weight_only', label:'Hammer Curl' } }
-        ]},
-        { title:'Biceps Finisher', progression:false, lines:[
-          { text:'EZ Bar 21s (7 bottom-half + 7 top-half + 7 full reps)', log:{ key:'ezBar21s', mode:'weight_only', label:'EZ Bar 21s' } }
-        ]},
-        { title:'Triceps — No Overhead (15 min, 3 Rounds)', progression:false, rounds:3, lines:[
-          { text:'Rope Pushdown × 12', log:{ key:'ropePushdown', mode:'weight_only', label:'Rope Pushdown' } },
-          { text:'EZ Bar Skull Crusher × 10 (lying, elbows in — no neck involvement)', log:{ key:'ezBarSkullCrusher', mode:'weight_reps', label:'EZ Bar Skull Crusher' } },
-          { text:'Tricep Kickback × 12 per arm', log:{ key:'tricepKickback', mode:'weight_only', label:'Tricep Kickback' } }
-        ]},
-        { title:'Core — No Chest/Neck Load (10 min, 3 Rounds)', progression:false, rounds:3, lines:[
-          '30-45 sec Plank Hold',
-          '10 per side Dead Bug (slow, controlled)',
-          '20-30 sec Hollow Hold'
-        ]},
-        { title:'Cool-Down (5 min)', progression:false, completionType:'doneNotDone', lines:[
-          'Bicep/forearm stretch — 20-30 sec per arm',
-          'Gentle wrist stretch — 20 sec per side',
-          'Child\'s pose — 30 sec (arms forward, no neck strain)'
-        ]}
-      ],
-      notesRx:"Nothing overhead, nothing rowed, nothing heavy horizontal today — traps and chest get a real break. If anything here starts pulling noticeably into the sore areas (skull crushers can sometimes tug at the chest if elbows flare), drop the weight or skip that specific movement rather than pushing through.",
+      notesRx:"The pyramid weight should genuinely climb with the RPE — don't lock in one number for all 5 sets. Rx: DB 2×22.5/15kg. Intermediate: DB 2×17.5/10kg — the more common choice for this one, given the relay format punishes going too heavy on the DB complex more than it rewards it.",
       strengthLifts:[]
     }
   ];
@@ -4814,7 +4748,9 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'armscore1'){
+    if(wod.id === 'lungebench1'){
+      out.dbComplexPartner = profile.gender === 'f' ? 10 : 17.5; // Intermediate default — relay format punishes going too heavy
+    } else if(wod.id === 'armscore1'){
       var bicepLevelAC = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
       out.ezBarCurl = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelAC));
       out.hammerCurl = roundNum(estimateMaxKg('hammerCurlAcc', bicepLevelAC));
@@ -4959,7 +4895,11 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'armscore1'){
+    if(wod.id === 'lungebench1'){
+      blockNotes.push({ name:'Back Rack Reverse Lunge Pyramid', cat:'strength', note:'30kg → 55kg across 5 sets — unilateral leg strength, weight should genuinely climb with RPE' });
+      blockNotes.push({ name:'DB Bench Press Pyramid', cat:'strength', note:'27.5kg → 52.5kg per hand — same climbing logic, paired in the superset' });
+      blockNotes.push({ name:'Partner Relay AMRAP', cat:'cond', note:'~' + s.dbComplexPartner + 'kg — the handoff rule makes pacing the real skill, not raw output' });
+    } else if(wod.id === 'armscore1'){
       blockNotes.push({ name:'EZ Bar Curl + Hammer Curl', cat:'strength', note:'~' + s.ezBarCurl + 'kg / ~' + s.hammerCurl + 'kg — two angles, same muscle, no trap or chest involvement' });
       blockNotes.push({ name:'EZ Bar 21s', cat:'strength', note:'~' + s.ezBar21s + 'kg — finishing pump, light enough to stay unbroken' });
       blockNotes.push({ name:'Rope Pushdown + Skull Crusher + Kickback', cat:'strength', note:'~' + s.ropePushdown + 'kg / ~' + s.ezBarSkullCrusher + 'kg / ~' + s.tricepKickback + 'kg — full tricep volume, zero overhead position' });
