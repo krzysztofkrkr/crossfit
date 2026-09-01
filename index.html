@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v5</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v6</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v5</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v6</p>
   </footer>
 </div>
 
@@ -5813,20 +5813,22 @@
           xpEach = Math.max(2, Math.round(xpBase * completionMult));
         }
 
-        var boxScaledEls = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .box-option-check:checked'));
-        if(boxScaledEls.length){
-          var boxScaledLabels = boxScaledEls.map(function(el){ return el.getAttribute('data-label') || 'a movement'; });
-          lines.push('Scaled with a box: ' + boxScaledLabels.join(', ') + '.');
-        }
-
-        var variantRows = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .line-variant-row'));
-        variantRows.forEach(function(row){
-          var activeVariant = row.querySelector('.line-variant-btn.active');
-          if(activeVariant){
-            var movementLabel = row.getAttribute('data-label') || 'a movement';
-            lines.push(movementLabel + ': performed as "' + activeVariant.getAttribute('data-variant') + '".');
+        try{
+          var boxScaledEls = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .box-option-check:checked'));
+          if(boxScaledEls.length){
+            var boxScaledLabels = boxScaledEls.map(function(el){ return el.getAttribute('data-label') || 'a movement'; });
+            lines.push('Scaled with a box: ' + boxScaledLabels.join(', ') + '.');
           }
-        });
+
+          var variantRows = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .line-variant-row'));
+          variantRows.forEach(function(row){
+            var activeVariant = row.querySelector('.line-variant-btn.active');
+            if(activeVariant){
+              var movementLabel = row.getAttribute('data-label') || 'a movement';
+              lines.push(movementLabel + ': performed as "' + activeVariant.getAttribute('data-variant') + '".');
+            }
+          });
+        }catch(boxVariantErr){ /* never let a scaling-note glitch block the actual log from going through */ }
 
         var recovery = computeWeeklyRecoveryHours(rpeVal, fatigueVal, completionMult, pctBWList);
         var impactHtml = assignedProgramImpactHtml(wod.categories);
