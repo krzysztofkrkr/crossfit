@@ -219,6 +219,14 @@
   .per-round-check input{ width:14px; height:14px; accent-color: var(--gold); cursor:pointer; }
   .line-box-toggle{ display:inline-flex; align-items:center; gap:5px; font-size: 11px; color: var(--chalk-faint); margin-left: 8px; cursor:pointer; }
   .line-box-toggle input{ width:14px; height:14px; accent-color: var(--gold); cursor:pointer; }
+  .wod-row-main{ display:flex; align-items:center; flex-wrap:wrap; }
+  .line-variant-row{ display:flex; gap:6px; margin: 4px 0 6px 20px; }
+  .line-variant-btn{
+    background: var(--bg-soft); border: 1px solid var(--card-line); color: var(--chalk-faint);
+    border-radius: 10px; font-size: 10.5px; padding: 3px 9px; cursor:pointer;
+    font-family: var(--body); font-weight:600; transition: all 0.15s ease;
+  }
+  .line-variant-btn.active{ background: var(--gold); border-color: var(--gold); color: var(--bg); }
   .rounds-completed-input{ width: 100px; flex:none; }
   .mini-rate-row{ display:flex; gap:6px; }
   .mini-rate-btn{
@@ -731,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v2</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v4</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -757,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v2</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v4</p>
   </footer>
 </div>
 
@@ -1984,13 +1992,13 @@
           '2) 3-6 Bar Muscle-Ups',
           '3) 6-10 Ring Dips'
         ]},
-        { title:"Conditioning — Every 2 min for 20' (For Time)", progression:false, completionType:'perRoundCheck', maxRounds:10, lines:[
-          { text:'3 Bar Muscle-Ups', boxOption:true },
-          { text:'6 Handstand Push-Ups', boxOption:true },
-          '5 Shuttle Runs (1 rep = there and back)'
+        { title:"Conditioning — Every 2 min for 20' (For Time)", progression:false, lines:[
+          { text:'3 Bar Muscle-Ups', boxOption:true, log:{ key:'bmuReps', mode:'count_only', label:'Bar Muscle-Ups', rounds:10, unit:'reps' } },
+          { text:'6 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuReps', mode:'count_only', label:'Handstand Push-Ups', rounds:10, unit:'reps' } },
+          { text:'5 Shuttle Runs (1 rep = there and back)', log:{ key:'shuttleReps', mode:'count_only', label:'Shuttle Runs', rounds:10, unit:'reps' } }
         ]}
       ],
-      notesRx:"Pick the Muscle-Up tier honestly — Base and Intermediate are the correct starting points if the full movement isn't there yet, not a consolation prize. \"From box\" checkboxes are there for exactly this: BMU and HSPU can both be scaled with a box assist without it being a lesser version of the workout. Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. (Note: the cal detail didn't fully match the visible conditioning movements in the source screenshot — worth double-checking against the original if that piece matters to you.)",
+      notesRx:"Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. BMU has a From Box option; HSPU has Strict/Kipping/From Box — pick whichever you actually did.",
       strengthLifts:[]
     }
   ];
@@ -2102,6 +2110,15 @@
       var minMatch = rawText.match(/^(Min\s*\d+):\s*(.*)$/i);
       var tagHtml = minMatch ? '<span class="wod-row-tag">' + minMatch[1].toUpperCase() + '</span>' : '<span class="wod-row-dot"></span>';
       var bodyText = minMatch ? minMatch[2] : rawText;
+      var boxToggleHtml = (typeof line === 'object' && line !== null && line.boxOption) ? '<label class="line-box-toggle"><input type="checkbox" class="box-option-check" data-boxkey="' + rawText.replace(/[^a-zA-Z0-9]/g,'').slice(0,20) + '"> From box</label>' : '';
+      var lineKeySafe = rawText.replace(/[^a-zA-Z0-9]/g,'').slice(0,20);
+      var variantHtml = (typeof line === 'object' && line !== null && line.variantOptions) ? (
+        '<div class="line-variant-row" data-linekey="' + lineKeySafe + '">' +
+          line.variantOptions.map(function(opt){
+            return '<button class="line-variant-btn" data-variant="' + opt.replace(/"/g,'&quot;') + '">' + opt + '</button>';
+          }).join('') +
+        '</div>'
+      ) : '';
 
       if(isLoggable){
         var L = line.log;
@@ -2166,13 +2183,13 @@
           '<div class="wod-row loggable">' + tagHtml +
             '<span class="wod-row-text">' + bodyText + '</span>' +
             '<span class="inline-log-inputs">' + inputsHtml + '</span>' +
-          '</div>' + breakdownHtml
+            boxToggleHtml +
+          '</div>' + variantHtml + breakdownHtml
         );
       }
 
       if(minMatch){
-        var boxToggleHtml = (isPlainObj && line.boxOption) ? '<label class="line-box-toggle"><input type="checkbox" class="box-option-check" data-boxkey="' + rawText.replace(/[^a-zA-Z0-9]/g,'').slice(0,20) + '"> From box</label>' : '';
-        return '<div class="wod-row">' + tagHtml + '<span>' + bodyText + '</span>' + boxToggleHtml + '</div>';
+        return '<div class="wod-row"><div class="wod-row-main">' + tagHtml + '<span>' + bodyText + '</span>' + boxToggleHtml + '</div>' + variantHtml + '</div>';
       }
       var duMatch = rawText.match(/^(\d+)\s+Double-Unders?\b(.*)$/i);
       if(duMatch){
@@ -2196,9 +2213,9 @@
           var boostedReps = Math.ceil(parseInt(repMatch[1],10) * 1.05);
           numDisplay = boostedReps + ' <span class="focus-boost-tag" title="Boosted 5% — Focus on This Skill is active">🎯</span>';
         }
-        return '<div class="wod-row"><span class="wod-row-dot"></span><span><b>' + numDisplay + '</b> ' + repMatch[2] + helpLinkHtml(repMatch[2]) + '</span></div>';
+        return '<div class="wod-row"><div class="wod-row-main"><span class="wod-row-dot"></span><span><b>' + numDisplay + '</b> ' + repMatch[2] + helpLinkHtml(repMatch[2]) + '</span>' + boxToggleHtml + '</div>' + variantHtml + '</div>';
       }
-      return '<div class="wod-row"><span class="wod-row-dot"></span><span>' + rawText + '</span></div>';
+      return '<div class="wod-row"><div class="wod-row-main"><span class="wod-row-dot"></span><span>' + rawText + '</span>' + boxToggleHtml + '</div>' + variantHtml + '</div>';
     }).join('');
   }
 
@@ -5565,6 +5582,15 @@
             });
           });
         });
+        cardEl.querySelectorAll('.line-variant-row').forEach(function(row){
+          row.querySelectorAll('.line-variant-btn').forEach(function(vbtn){
+            vbtn.addEventListener('click', function(e){
+              e.stopPropagation();
+              row.querySelectorAll('.line-variant-btn').forEach(function(b){ b.classList.remove('active'); });
+              vbtn.classList.add('active');
+            });
+          });
+        });
         cardEl.querySelectorAll('.amrap-item').forEach(function(item){
           var roundsInp = item.querySelector('.amrap-rounds');
           var repsInp = item.querySelector('.amrap-reps');
@@ -5789,9 +5815,18 @@
 
         var boxScaledEls = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .box-option-check:checked'));
         if(boxScaledEls.length){
-          var boxScaledLabels = boxScaledEls.map(function(el){ return el.closest('.wod-row').querySelector('span').textContent; });
+          var boxScaledLabels = boxScaledEls.map(function(el){ return el.closest('.wod-row').querySelector('.wod-row-main span').textContent; });
           lines.push('Scaled with a box: ' + boxScaledLabels.join(', ') + '.');
         }
+
+        var variantRows = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .line-variant-row'));
+        variantRows.forEach(function(row){
+          var activeVariant = row.querySelector('.line-variant-btn.active');
+          if(activeVariant){
+            var movementLabel = row.closest('.wod-row').querySelector('.wod-row-main span').textContent;
+            lines.push(movementLabel + ': performed as "' + activeVariant.getAttribute('data-variant') + '".');
+          }
+        });
 
         var recovery = computeWeeklyRecoveryHours(rpeVal, fatigueVal, completionMult, pctBWList);
         var impactHtml = assignedProgramImpactHtml(wod.categories);
