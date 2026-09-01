@@ -212,6 +212,13 @@
   .reps-field-row input{ width: 70px; flex:none; }
   .block-completion.difficulty-item, .block-completion.rounds-diff-item{ justify-content:space-between; flex-wrap:wrap; gap:8px; }
   .block-completion-label{ font-size: 12px; color: var(--chalk-dim); }
+  .block-completion.tier-item{ flex-direction:column; align-items:stretch; gap:8px; }
+  .block-completion.per-round-item{ flex-direction:column; align-items:stretch; }
+  .per-round-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 8px; }
+  .per-round-check{ display:flex; align-items:center; gap:5px; font-size: 11.5px; color: var(--chalk-dim); background: var(--bg-soft); border: 1px solid var(--card-line); border-radius: 8px; padding: 4px 9px; cursor:pointer; }
+  .per-round-check input{ width:14px; height:14px; accent-color: var(--gold); cursor:pointer; }
+  .line-box-toggle{ display:inline-flex; align-items:center; gap:5px; font-size: 11px; color: var(--chalk-faint); margin-left: 8px; cursor:pointer; }
+  .line-box-toggle input{ width:14px; height:14px; accent-color: var(--gold); cursor:pointer; }
   .rounds-completed-input{ width: 100px; flex:none; }
   .mini-rate-row{ display:flex; gap:6px; }
   .mini-rate-btn{
@@ -724,7 +731,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -750,7 +757,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v2</p>
   </footer>
 </div>
 
@@ -1963,7 +1970,7 @@
       categories:['gym','cond'],
       summary:"Pick your honest tier for Muscle-Up skill work (EMOM 12'), then a 20-minute for-time piece pairing Bar Muscle-Ups, Handstand Push-Ups, and shuttle runs every 2 minutes.",
       blocks:[
-        { title:"Skill Work — Muscle-Up Progressions (EMOM 12', pick your tier)", progression:false, completionType:'difficulty', lines:[
+        { title:"Skill Work — Muscle-Up Progressions (EMOM 12', pick your tier)", progression:false, completionType:'tierSelect', tiers:['Base','Intermediate','Advanced'], lines:[
           'BASE (below a strict pull-up minimum) — EMOM 12\':',
           '1) 5 Strict Banded Pull-Ups',
           '2) 10 Kipping Swings',
@@ -1977,13 +1984,13 @@
           '2) 3-6 Bar Muscle-Ups',
           '3) 6-10 Ring Dips'
         ]},
-        { title:"Conditioning — Every 2 min for 20' (For Time)", progression:false, completionType:'roundsAndDifficulty', maxRounds:10, lines:[
-          '3 Bar Muscle-Ups',
-          '6 Handstand Push-Ups',
+        { title:"Conditioning — Every 2 min for 20' (For Time)", progression:false, completionType:'perRoundCheck', maxRounds:10, lines:[
+          { text:'3 Bar Muscle-Ups', boxOption:true },
+          { text:'6 Handstand Push-Ups', boxOption:true },
           '5 Shuttle Runs (1 rep = there and back)'
         ]}
       ],
-      notesRx:"Pick the Muscle-Up tier honestly — Base and Intermediate are the correct starting points if the full movement isn't there yet, not a consolation prize. Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. (Note: the cal detail didn't fully match the visible conditioning movements in the source screenshot — worth double-checking against the original if that piece matters to you.)",
+      notesRx:"Pick the Muscle-Up tier honestly — Base and Intermediate are the correct starting points if the full movement isn't there yet, not a consolation prize. \"From box\" checkboxes are there for exactly this: BMU and HSPU can both be scaled with a box assist without it being a lesser version of the workout. Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. (Note: the cal detail didn't fully match the visible conditioning movements in the source screenshot — worth double-checking against the original if that piece matters to you.)",
       strengthLifts:[]
     }
   ];
@@ -2038,6 +2045,29 @@
         '</div>'
       );
     }
+    if(b.completionType === 'tierSelect'){
+      var tierBtns = (b.tiers||[]).map(function(t, ti){
+        return '<button class="mini-rate-btn' + (ti===0?' active':'') + '" data-tier="' + t.replace(/"/g,'&quot;') + '">' + t + '</button>';
+      }).join('');
+      return (
+        '<div class="block-completion tier-item">' +
+          '<span class="block-completion-label">Which tier did you actually do?</span>' +
+          '<div class="mini-rate-row tier-row" data-blockidx="' + bi + '">' + tierBtns + '</div>' +
+        '</div>'
+      );
+    }
+    if(b.completionType === 'perRoundCheck'){
+      var roundChecks = '';
+      for(var pri = 1; pri <= (b.maxRounds||1); pri++){
+        roundChecks += '<label class="per-round-check"><input type="checkbox" class="pr-check" data-blockidx="' + bi + '" data-pr="' + pri + '" checked> Rd ' + pri + '</label>';
+      }
+      return (
+        '<div class="block-completion per-round-item">' +
+          '<span class="block-completion-label">Uncheck any round you missed or didn\'t finish on time</span>' +
+          '<div class="per-round-grid">' + roundChecks + '</div>' +
+        '</div>'
+      );
+    }
     if(b.completionType === 'amrapScore'){
       return (
         '<div class="block-completion amrap-item">' +
@@ -2067,7 +2097,8 @@
     }
     return lines.map(function(line){
       var isLoggable = typeof line === 'object' && line !== null && line.log;
-      var rawText = isLoggable ? line.text : line;
+      var isPlainObj = typeof line === 'object' && line !== null && !line.log;
+      var rawText = isLoggable ? line.text : (isPlainObj ? line.text : line);
       var minMatch = rawText.match(/^(Min\s*\d+):\s*(.*)$/i);
       var tagHtml = minMatch ? '<span class="wod-row-tag">' + minMatch[1].toUpperCase() + '</span>' : '<span class="wod-row-dot"></span>';
       var bodyText = minMatch ? minMatch[2] : rawText;
@@ -2140,7 +2171,8 @@
       }
 
       if(minMatch){
-        return '<div class="wod-row">' + tagHtml + '<span>' + bodyText + '</span></div>';
+        var boxToggleHtml = (isPlainObj && line.boxOption) ? '<label class="line-box-toggle"><input type="checkbox" class="box-option-check" data-boxkey="' + rawText.replace(/[^a-zA-Z0-9]/g,'').slice(0,20) + '"> From box</label>' : '';
+        return '<div class="wod-row">' + tagHtml + '<span>' + bodyText + '</span>' + boxToggleHtml + '</div>';
       }
       var duMatch = rawText.match(/^(\d+)\s+Double-Unders?\b(.*)$/i);
       if(duMatch){
@@ -5704,6 +5736,21 @@
                 var doneVal = activeDone ? activeDone.getAttribute('data-done') : 'yes';
                 fractions.push(doneVal === 'yes' ? 1 : 0);
                 (doneVal === 'yes' ? doneTitles : undoneTitles).push(b.title);
+              } else if(b.completionType === 'tierSelect'){
+                var activeTier = document.querySelector(scope + '.mini-rate-row.tier-row[data-blockidx="' + i + '"] .mini-rate-btn.active');
+                var tierVal = activeTier ? activeTier.getAttribute('data-tier') : (b.tiers && b.tiers[0]);
+                fractions.push(1); // picking a tier always counts as done — the tier choice is informational
+                doneTitles.push(b.title + ' — Tier: ' + tierVal);
+              } else if(b.completionType === 'perRoundCheck'){
+                var prTotal = b.maxRounds || 1;
+                var prDone = [], prMissed = [];
+                for(var pri2 = 1; pri2 <= prTotal; pri2++){
+                  var prBox = document.querySelector(scope + '.pr-check[data-blockidx="' + i + '"][data-pr="' + pri2 + '"]');
+                  var prChecked = prBox ? prBox.checked : true;
+                  (prChecked ? prDone : prMissed).push(pri2);
+                }
+                fractions.push(prDone.length / prTotal);
+                doneTitles.push(b.title + ': ' + prDone.length + '/' + prTotal + ' rounds completed on time' + (prMissed.length ? ' (missed Rd ' + prMissed.join(', ') + ')' : ''));
               } else if(b.completionType === 'amrapScore'){
                 var roundsInp2 = document.querySelector(scope + '.amrap-rounds[data-blockidx="' + i + '"]');
                 var repsInp2 = document.querySelector(scope + '.amrap-reps[data-blockidx="' + i + '"]');
@@ -5738,6 +5785,12 @@
             completionMult = parseFloat(document.getElementById('completion-' + wod.id).value);
           }
           xpEach = Math.max(2, Math.round(xpBase * completionMult));
+        }
+
+        var boxScaledEls = Array.prototype.slice.call(document.querySelectorAll('#wcard-' + wod.id + ' .box-option-check:checked'));
+        if(boxScaledEls.length){
+          var boxScaledLabels = boxScaledEls.map(function(el){ return el.closest('.wod-row').querySelector('span').textContent; });
+          lines.push('Scaled with a box: ' + boxScaledLabels.join(', ') + '.');
         }
 
         var recovery = computeWeeklyRecoveryHours(rpeVal, fatigueVal, completionMult, pctBWList);
