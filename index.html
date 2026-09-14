@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-01-v6</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-14</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-01-v6</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-14</p>
   </footer>
 </div>
 
@@ -1999,6 +1999,37 @@
         ]}
       ],
       notesRx:"Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. BMU has a From Box option; HSPU has Strict/Kipping/From Box — pick whichever you actually did.",
+      strengthLifts:[]
+    },
+    {
+      id:'pccj1', day:'Power Clean & Jerk EMOM + Partner Workout (Return from 2-Week Layoff)',
+      categories:['oly','cond'],
+      summary:"A 3-bracket ascending Power Clean & Jerk EMOM, then a free-relay partner workout across three shrinking windows — both deliberately scaled down one bracket from the source WOD given a 2-week layoff.",
+      blocks:[
+        { title:"Weightlifting — Power Clean & Jerk (EMOM 15')", progression:true, lines:[
+          { text:'Min 1-5: 3 Power Clean & Jerk @ 50-55% (scaled down from 60-65% for the layoff)', log:{ key:'pccjBracket1', mode:'weight_only', label:'PC&J Bracket 1', rounds:5, roundSuggestions:[35,35,35,35,35] } },
+          { text:'Min 6-10: 2 Power Clean & Jerk @ 60-65% (scaled down from 70-75%)', log:{ key:'pccjBracket2', mode:'weight_only', label:'PC&J Bracket 2', rounds:5, roundSuggestions:[40,40,40,40,40] } },
+          { text:'Min 11-14: 1 Power Clean & Jerk @ 70-75%, hard stop (scaled down from 80-85%)', log:{ key:'pccjBracket3', mode:'weight_only', label:'PC&J Bracket 3', rounds:4, roundSuggestions:[45,47.5,47.5,47.5] } }
+        ]},
+        { title:"Partner Workout A — 5 min window (free relay)", progression:false, lines:[
+          '40 Pull-Ups (split however works for your team)',
+          { text:'40 Thrusters', log:{ key:'thrusterPartner', mode:'weight_only', label:'Thruster' } },
+          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsA', mode:'count_only', label:'Cals — Window A', unit:'cals' } }
+        ]},
+        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
+        { title:"Partner Workout B — 4 min window (free relay)", progression:false, lines:[
+          '30 Pull-Ups',
+          '30 Thrusters (same barbell weight as A)',
+          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsB', mode:'count_only', label:'Cals — Window B', unit:'cals' } }
+        ]},
+        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
+        { title:"Partner Workout C — 3 min window (free relay)", progression:false, lines:[
+          '20 Pull-Ups',
+          '20 Thrusters (same barbell weight as A)',
+          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsC', mode:'count_only', label:'Cals — Window C', unit:'cals' } }
+        ]}
+      ],
+      notesRx:"First session back after 2 weeks off — every bracket here is deliberately one full step down from the source WOD, not the full prescription. Rx: Barbell 50/35kg. Intermediate: Barbell 40/30kg — use Intermediate today. Free relay means you and your partner split reps however you want; let them take a bigger share early if grip or shoulders feel the layoff, especially on pull-ups.",
       strengthLifts:[]
     }
   ];
@@ -4825,7 +4856,9 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'muscleup1'){
+    if(wod.id === 'pccj1'){
+      out.thrusterPartner = profile.gender === 'f' ? 30 : 40; // Intermediate — recommended today given the layoff
+    } else if(wod.id === 'muscleup1'){
       var pullupLevelMU = Math.max(1, Math.min(5, Math.round(getSkillScore('gym','pullups'))));
       out.weightedPullupMU = roundNum(estimateMaxKg('weightedPullupAcc', pullupLevelMU));
     } else if(wod.id === 'lungebench1'){
@@ -4975,7 +5008,12 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'muscleup1'){
+    if(wod.id === 'pccj1'){
+      blockNotes.push({ name:'PC&J Bracket 1 (3 reps)', cat:'oly', note:'~35kg — deliberately light after 2 weeks off, technique over load' });
+      blockNotes.push({ name:'PC&J Bracket 2 (2 reps)', cat:'oly', note:'~40kg — building, still one step below the source WOD' });
+      blockNotes.push({ name:'PC&J Bracket 3 (1 rep)', cat:'oly', note:'~47.5kg — genuinely working, hard stop, no chasing a heavier single today' });
+      blockNotes.push({ name:'Partner Workout (A/B/C)', cat:'cond', note:'~' + s.thrusterPartner + 'kg — free relay lets you manage your own share of the volume' });
+    } else if(wod.id === 'muscleup1'){
       blockNotes.push({ name:'Muscle-Up Skill Work (all tiers)', cat:'gym', note:'real progression toward Muscle-Up — pick the tier that actually matches where you are today' });
       blockNotes.push({ name:'Weighted Pull-Up (Advanced tier)', cat:'gym', note:'~+' + s.weightedPullupMU + 'kg added — only relevant if you\'re in the Advanced tier' });
       blockNotes.push({ name:'Conditioning — BMU, HSPU, Shuttle Runs', cat:'cond', note:'capacity test on two genuinely hard skills, under a real clock' });
