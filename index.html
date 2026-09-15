@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-14-v2</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-14-v2</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15</p>
   </footer>
 </div>
 
@@ -1043,6 +1043,7 @@
     slamballCleanAcc:{ name:'Slamball Clean', category:'strength', m:[0.15,0.2,0.25,0.3,0.35], f:[0.1,0.14,0.18,0.22,0.26] },
     ezBarCurlAcc:{ name:'EZ Bar Curl (total bar)', category:'strength', m:[0.15,0.2,0.27,0.35,0.45], f:[0.1,0.15,0.2,0.25,0.32] },
     floorPressAcc:{ name:'Barbell Floor Press (total)', category:'strength', m:[0.4,0.55,0.7,0.85,1.0], f:[0.28,0.38,0.48,0.58,0.68] },
+    dbBicepCurlAcc:{ name:'Double DB Bicep Curl (per hand)', category:'strength', m:[0.1,0.15,0.2,0.25,0.32], f:[0.07,0.1,0.14,0.18,0.22] },
     inclineDbPressAcc:{ name:'Incline DB Press (per hand)', category:'strength', m:[0.18,0.26,0.35,0.45,0.55], f:[0.12,0.18,0.24,0.3,0.37] },
     chestFlyeAcc:{ name:'DB Chest Flye (per hand)', category:'strength', m:[0.08,0.12,0.16,0.2,0.25], f:[0.06,0.09,0.12,0.15,0.19] },
     dbFloorPressAcc:{ name:'DB Floor Press (per hand)', category:'strength', m:[0.18,0.25,0.33,0.42,0.5], f:[0.12,0.18,0.24,0.3,0.36] },
@@ -1951,6 +1952,30 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
+      id:'pushpull1', day:'Friday — Push/Pull Supersets + Conditioning',
+      categories:['strength','cond'],
+      summary:"A see-saw DB press/row superset straight into a bicep/tricep superset, then a symmetric burpee-box-jump/double-under/wall-ball chipper.",
+      blocks:[
+        { title:"Mixed Strength A — See-Saw DB Bench Press + Row (Every 2 min, 4 rounds)", progression:true, rounds:4, lines:[
+          { text:'See-Saw DB Bench Press × 8-12 reps', log:{ key:'dbBenchPress', mode:'weight_reps', label:'DB Bench Press', rounds:4 } },
+          { text:'See-Saw DB Bent-Over Row × 8-12 reps', log:{ key:'bentRow', mode:'weight_reps', label:'DB Bent-Over Row', rounds:4 } }
+        ]},
+        { title:"Mixed Strength B — DB Bicep Curl + Tricep Extension (Every 2 min, 4 rounds, straight into it)", progression:true, rounds:4, lines:[
+          { text:'Double DB Bicep Curl × 8-12 reps', log:{ key:'dbBicepCurlWod', mode:'weight_reps', label:'DB Bicep Curl', rounds:4 } },
+          { text:'Double DB Tricep Extension × 8-12 reps', log:{ key:'tricepExt', mode:'weight_reps', label:'DB Tricep Extension', rounds:4 } }
+        ]},
+        { title:'Conditioning — For Time (16 min cap)', progression:false, lines:[
+          { text:'20 Burpee Box Jump-Overs', variantOptions:['20 (Rx)','10 (Scaled)'] },
+          '100 Double-Unders',
+          { text:'75 Wall-Balls', log:{ key:'wallBallPP', mode:'weight_only', label:'Wall Ball' } },
+          '100 Double-Unders',
+          { text:'20 Burpee Box Jump-Overs', variantOptions:['20 (Rx)','10 (Scaled)'] }
+        ]}
+      ],
+      notesRx:"Straight from A into B, no rest between — the only rest is whatever's left in each 2-minute window. Burpee Box Jump-Overs have a scaling option on both instances — pick 10 instead of 20 for either or both if the chipper volume is too much today.",
+      strengthLifts:[]
+    },
+    {
       id:'lungebench1', day:'Mixed Strength (Lunges + DB Bench) + Partner Conditioning',
       categories:['strength','cond'],
       summary:"A 5-stage ascending pyramid pairing Back Rack Reverse Lunges with DB Bench Press, then a partner relay AMRAP where you can't hand off until you clear the full double-under/deadlift/squat clean/thruster sequence.",
@@ -2000,37 +2025,6 @@
         ]}
       ],
       notesRx:"Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. BMU has a From Box option; HSPU has Strict/Kipping/From Box — pick whichever you actually did.",
-      strengthLifts:[]
-    },
-    {
-      id:'pccj1', day:'Power Clean & Jerk EMOM + Partner Workout (Return from 2-Week Layoff)',
-      categories:['oly','cond'],
-      summary:"A 3-bracket ascending Power Clean & Jerk EMOM, then a free-relay partner workout across three shrinking windows — both deliberately scaled down one bracket from the source WOD given a 2-week layoff.",
-      blocks:[
-        { title:"Weightlifting — Power Clean & Jerk (EMOM 15')", progression:true, lines:[
-          { text:'Min 1-5: 3 Power Clean & Jerk @ 50-55% (scaled down from 60-65% for the layoff)', log:{ key:'pccjBracket1', mode:'weight_only', label:'PC&J Bracket 1', rounds:5, roundSuggestions:[35,35,35,35,35] } },
-          { text:'Min 6-10: 2 Power Clean & Jerk @ 60-65% (scaled down from 70-75%)', log:{ key:'pccjBracket2', mode:'weight_only', label:'PC&J Bracket 2', rounds:5, roundSuggestions:[40,40,40,40,40] } },
-          { text:'Min 11-14: 1 Power Clean & Jerk @ 70-75%, hard stop (scaled down from 80-85%)', log:{ key:'pccjBracket3', mode:'weight_only', label:'PC&J Bracket 3', rounds:4, roundSuggestions:[45,47.5,47.5,47.5] } }
-        ]},
-        { title:"Partner Workout A — 5 min window (free relay)", progression:false, lines:[
-          '40 Pull-Ups (split however works for your team)',
-          { text:'40 Thrusters', log:{ key:'thrusterPartner', mode:'weight_only', label:'Thruster' } },
-          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsA', mode:'count_only', label:'Cals — Window A', unit:'cals' } }
-        ]},
-        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
-        { title:"Partner Workout B — 4 min window (free relay)", progression:false, lines:[
-          '30 Pull-Ups',
-          '30 Thrusters (same barbell weight as A)',
-          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsB', mode:'count_only', label:'Cals — Window B', unit:'cals' } }
-        ]},
-        { title:'Rest', progression:false, rest:true, lines:['2 minutes rest'] },
-        { title:"Partner Workout C — 3 min window (free relay)", progression:false, lines:[
-          '20 Pull-Ups',
-          '20 Thrusters (same barbell weight as A)',
-          { text:'Max Cals Row/Any Machine in remaining time', log:{ key:'calsC', mode:'count_only', label:'Cals — Window C', unit:'cals' } }
-        ]}
-      ],
-      notesRx:"First session back after 2 weeks off — every bracket here is deliberately one full step down from the source WOD, not the full prescription. Rx: Barbell 50/35kg. Intermediate: Barbell 40/30kg — use Intermediate today. Free relay means you and your partner split reps however you want; let them take a bigger share early if grip or shoulders feel the layoff, especially on pull-ups.",
       strengthLifts:[]
     },
     {
@@ -5007,7 +5001,15 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.programId === 'pelvicBicepChest'){
+    if(wod.id === 'pushpull1'){
+      var strLevelPP = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
+      out.dbBenchPress = roundNum(estimateMaxKg('dbBenchPressAcc', strLevelPP));
+      out.bentRow = roundNum(estimateMaxKg('bentOverRowAcc', strLevelPP));
+      var bicepLevelPP = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
+      out.dbBicepCurlWod = roundNum(estimateMaxKg('dbBicepCurlAcc', bicepLevelPP));
+      out.tricepExt = roundNum(estimateMaxKg('tricepExtAcc', strLevelPP));
+      out.wallBallPP = profile.gender === 'f' ? 6 : 9;
+    } else if(wod.programId === 'pelvicBicepChest'){
       var strLevelPelvic = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
       out.floorPress = roundNum(estimateMaxKg('floorPressAcc', strLevelPelvic));
       var bicepLevelPelvic = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
@@ -5169,7 +5171,11 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.programId === 'pelvicBicepChest'){
+    if(wod.id === 'pushpull1'){
+      blockNotes.push({ name:'DB Bench Press + Row Superset', cat:'strength', note:'~' + s.dbBenchPress + 'kg / ~' + s.bentRow + 'kg — balanced push/pull, straight from A into B' });
+      blockNotes.push({ name:'DB Bicep Curl + Tricep Extension', cat:'strength', note:'~' + s.dbBicepCurlWod + 'kg / ~' + s.tricepExt + 'kg — arm volume right after the compound work' });
+      blockNotes.push({ name:'Chipper — Box Jumps, DU, Wall Balls', cat:'cond', note:'~' + s.wallBallPP + 'kg — symmetric structure, box jumps scalable to 10 if needed' });
+    } else if(wod.programId === 'pelvicBicepChest'){
       blockNotes.push({ name:'Pelvic Tilt Corrective', cat:'strength', note:'anterior tilt work — hip flexor release + glute/core activation, every week' });
       blockNotes.push({ name:'Chest (Floor Press variant)', cat:'strength', note:'~' + s.floorPress + 'kg baseline — this week\'s scheme adjusts reps/tempo/load around it' });
       blockNotes.push({ name:'Biceps (Z-Bar Curl variant)', cat:'strength', note:'~' + s.ezBarCurlProg + 'kg baseline — same logic, week-to-week variation on the same anchor lift' });
