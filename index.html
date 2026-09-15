@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-14</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-14-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-14</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-14-v2</p>
   </footer>
 </div>
 
@@ -1042,6 +1042,7 @@
     latPulldownAcc:{ name:'Seated Cable Pulldown', category:'strength', m:[0.3,0.45,0.6,0.75,0.9], f:[0.22,0.32,0.42,0.52,0.62] },
     slamballCleanAcc:{ name:'Slamball Clean', category:'strength', m:[0.15,0.2,0.25,0.3,0.35], f:[0.1,0.14,0.18,0.22,0.26] },
     ezBarCurlAcc:{ name:'EZ Bar Curl (total bar)', category:'strength', m:[0.15,0.2,0.27,0.35,0.45], f:[0.1,0.15,0.2,0.25,0.32] },
+    floorPressAcc:{ name:'Barbell Floor Press (total)', category:'strength', m:[0.4,0.55,0.7,0.85,1.0], f:[0.28,0.38,0.48,0.58,0.68] },
     inclineDbPressAcc:{ name:'Incline DB Press (per hand)', category:'strength', m:[0.18,0.26,0.35,0.45,0.55], f:[0.12,0.18,0.24,0.3,0.37] },
     chestFlyeAcc:{ name:'DB Chest Flye (per hand)', category:'strength', m:[0.08,0.12,0.16,0.2,0.25], f:[0.06,0.09,0.12,0.15,0.19] },
     dbFloorPressAcc:{ name:'DB Floor Press (per hand)', category:'strength', m:[0.18,0.25,0.33,0.42,0.5], f:[0.12,0.18,0.24,0.3,0.36] },
@@ -2030,6 +2031,132 @@
         ]}
       ],
       notesRx:"First session back after 2 weeks off — every bracket here is deliberately one full step down from the source WOD, not the full prescription. Rx: Barbell 50/35kg. Intermediate: Barbell 40/30kg — use Intermediate today. Free relay means you and your partner split reps however you want; let them take a bigger share early if grip or shoulders feel the layoff, especially on pull-ups.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW1', day:'Friday — Week 1: Foundation', programId:'pelvicBicepChest', programOrder:1,
+      categories:['strength'],
+      summary:"Biceps/Chest growth + anterior pelvic tilt corrective, Week 1 of 6 — establishes baseline weights that Week 6 will retest against.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side',
+          '3x12 Glute Bridge',
+          '3x10 per side Dead Bug (slow, controlled)'
+        ]},
+        { title:'Chest — Barbell Floor Press (20 min, 4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'Floor Press × 10 @ moderate load', log:{ key:'floorPress', mode:'weight_reps', label:'Floor Press', rounds:4 } }
+        ]},
+        { title:'Biceps — Z-Bar Curl (20 min, 4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'Z-Bar Curl × 10', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl', rounds:4 } }
+        ]}
+      ],
+      notesRx:"Week 1 of 6 — this session's weights become your baseline. Week 6 retests at this exact same weight for max reps, so log real numbers here, not a guess.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW2', day:'Friday — Week 2: Tempo', programId:'pelvicBicepChest', programOrder:2,
+      categories:['strength'],
+      summary:"Same movement pattern, tempo-controlled — slows the eccentric to increase time under tension without adding load.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Banded Glute Bridge, tempo 2 sec up-1 sec hold-2 sec down × 10',
+          '3x20-30 sec Hollow Hold',
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side (maintain)'
+        ]},
+        { title:'Chest — Tempo Floor Press (20 min, 4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'Floor Press × 8 @ tempo 3-1-1 (3 sec down, 1 sec pause, 1 sec up)', log:{ key:'floorPress', mode:'weight_reps', label:'Floor Press (tempo)', rounds:4 } }
+        ]},
+        { title:'Biceps — Tempo Z-Bar Curl (20 min, 4 Rounds)', progression:true, rounds:4, lines:[
+          { text:'Z-Bar Curl × 8 @ tempo 3-0-1 (3 sec down, 1 sec up)', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl (tempo)', rounds:4 } }
+        ]}
+      ],
+      notesRx:"Week 2 of 6 — expect to use slightly less weight than Week 1 at this tempo; the slow eccentric is the point, not the number on the bar.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW3', day:'Friday — Week 3: Volume', programId:'pelvicBicepChest', programOrder:3,
+      categories:['strength'],
+      summary:"Higher-rep volume work with a chest superset and a biceps burnout finisher.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Banded Lateral Walk — 3x10 steps per side',
+          '3x12 Weighted Glute Bridge',
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side (maintain)'
+        ]},
+        { title:'Chest — Floor Press + Med Ball Squeeze Superset (20 min, 3 Rounds)', progression:false, rounds:3, lines:[
+          { text:'Floor Press × 15', log:{ key:'floorPress', mode:'weight_reps', label:'Floor Press', rounds:3 } },
+          '10 Med Ball Squeeze Press (isometric chest squeeze on the ball)'
+        ]},
+        { title:'Biceps — Z-Bar 21s + Band Curl Finisher (20 min)', progression:false, lines:[
+          { text:'Z-Bar 21s (7 bottom-half + 7 top-half + 7 full reps)', log:{ key:'ezBar21sProg', mode:'weight_only', label:'Z-Bar 21s' } },
+          'Band Curl to failure — 2 sets, both arms'
+        ]}
+      ],
+      notesRx:"Week 3 of 6 — this is a pump/volume week. Weight drops, reps and burn go up. The med ball squeeze is isometric — squeeze hard through the whole rep, don't rush it.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW4', day:'Friday — Week 4: Strength Bias', programId:'pelvicBicepChest', programOrder:4,
+      categories:['strength'],
+      summary:"Heavier, lower-rep work, plus rope climbs for real grip/bicep/lat loading.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          '3x10 per side Single-Leg Glute Bridge',
+          { text:'Light Romanian Deadlift × 10', log:{ key:'lightRDLProg', mode:'weight_reps', label:'Light RDL', rounds:3 } },
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side (maintain)'
+        ]},
+        { title:'Chest — Heavy Floor Press + Weighted Push-Ups (20 min)', progression:true, rounds:5, lines:[
+          { text:'Floor Press × 5 @ heavy', log:{ key:'floorPress', mode:'weight_reps', label:'Floor Press (heavy)', rounds:5 } },
+          { text:'Weighted Push-Ups × 8 (3 sets)', log:{ key:'weightedPushupProg', mode:'weight_only', label:'Weighted Push-Up' } }
+        ]},
+        { title:'Biceps — Heavy Z-Bar Curl + Rope Climb (20 min)', progression:true, rounds:5, lines:[
+          { text:'Z-Bar Curl × 6 @ heavy', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl (heavy)', rounds:5 } },
+          '3-5 Rope Climb ascents (partial climbs are fine — real grip/bicep/lat load either way)'
+        ]}
+      ],
+      notesRx:"Week 4 of 6 — genuinely heavier, lower reps. The rope climb is there specifically for grip and bicep loading you can't get from curls alone.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW5', day:'Friday — Week 5: Unilateral', programId:'pelvicBicepChest', programOrder:5,
+      categories:['strength'],
+      summary:"Single-arm and single-leg work — exposes and corrects any left/right imbalance the bilateral weeks can hide.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          { text:'Single-Leg RDL × 8 per leg', log:{ key:'singleLegRDLProg', mode:'weight_only', label:'Single-Leg RDL' } },
+          '3x20-30 sec per side Side Plank',
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side (maintain)'
+        ]},
+        { title:'Chest — Single-Arm Landmine Press (20 min, 3 Rounds)', progression:true, rounds:3, lines:[
+          { text:'Single-Arm Landmine Press × 10 per side', log:{ key:'landminePress', mode:'weight_only', label:'Landmine Press', rounds:3 } }
+        ]},
+        { title:'Biceps — Single-Arm Band Curl (20 min, 3 Rounds)', progression:false, rounds:3, lines:[
+          '12 per side Single-Arm Band Curl'
+        ]}
+      ],
+      notesRx:"Week 5 of 6 — pay attention to any side that feels noticeably weaker or less stable. That's exactly the imbalance this week is designed to surface.",
+      strengthLifts:[]
+    },
+    {
+      id:'pelvicW6', day:'Friday — Week 6: Test & Integration', programId:'pelvicBicepChest', programOrder:6,
+      categories:['strength'],
+      summary:"Retest week — same weight as Week 1, max reps. The comparison is the point, not a new max.",
+      blocks:[
+        { title:'Pelvic Tilt Corrective — Full Circuit, Timed (10 min)', progression:false, completionType:'doneNotDone', lines:[
+          'Kneeling Hip Flexor Stretch — 30-45 sec per side',
+          '12 Glute Bridge',
+          '10 per side Dead Bug',
+          '20-30 sec per side Side Plank',
+          'Time the full circuit once through — compare to how it felt in Week 1'
+        ]},
+        { title:'Chest — Floor Press Retest (max reps @ Week 1 weight)', progression:false, lines:[
+          { text:'Floor Press — max reps @ your Week 1 weight', log:{ key:'floorPress', mode:'weight_reps', label:'Floor Press (retest)' } }
+        ]},
+        { title:'Biceps — Z-Bar Curl Retest (max reps @ Week 1 weight)', progression:false, lines:[
+          { text:'Z-Bar Curl — max reps @ your Week 1 weight', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl (retest)' } }
+        ]}
+      ],
+      notesRx:"Week 6 of 6 — use the exact same weight you logged in Week 1 for both lifts, and just go for max clean reps. More reps than Week 1 at the same weight is your real progress marker for this cycle.",
       strengthLifts:[]
     }
   ];
@@ -4285,6 +4412,30 @@
     return trainingHistory.some(function(e){ return e.label === wod.day + ' WOD'; });
   }
 
+  /* Programs (e.g. a 6-week rotating cycle) tag their WODs with programId + programOrder.
+     Only the earliest not-yet-completed session in each program is shown in This Week's
+     WODs — completing one reveals the next automatically, exactly like a real program
+     should behave, instead of dumping all 6 weeks on the list at once. */
+  function visibleWeeklyWods(){
+    var groups = {};
+    WEEKLY_WODS.forEach(function(wod){
+      if(wod.programId){
+        if(!groups[wod.programId]) groups[wod.programId] = [];
+        groups[wod.programId].push(wod);
+      }
+    });
+    Object.keys(groups).forEach(function(pid){
+      groups[pid].sort(function(a,b){ return a.programOrder - b.programOrder; });
+    });
+    return WEEKLY_WODS.filter(function(wod){
+      if(!wod.programId) return true;
+      var seq = groups[wod.programId];
+      var firstIncomplete = seq.filter(function(w){ return !isWodCompleted(w); })[0];
+      if(firstIncomplete) return firstIncomplete.id === wod.id;
+      return wod.programOrder === seq[seq.length-1].programOrder; // whole program done — keep showing the last one
+    });
+  }
+
   async function resetWodHistory(wodDay){
     trainingHistory = trainingHistory.filter(function(e){ return e.label !== wodDay + ' WOD'; });
     await saveAll();
@@ -4856,7 +5007,17 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'pccj1'){
+    if(wod.programId === 'pelvicBicepChest'){
+      var strLevelPelvic = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
+      out.floorPress = roundNum(estimateMaxKg('floorPressAcc', strLevelPelvic));
+      var bicepLevelPelvic = Math.max(1, Math.min(5, Math.round(getSkillScore('strength','dbBicep'))));
+      out.ezBarCurlProg = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelPelvic));
+      out.ezBar21sProg = roundNum(estimateMaxKg('ezBarCurlAcc', bicepLevelPelvic) * 0.6);
+      out.lightRDLProg = roundNum(estimateMaxKg('deadlift', Math.max(1, Math.min(5, Math.round(getSkillScore('strength','deadlift'))))) * 0.4);
+      out.weightedPushupProg = roundNum((profile.weight || 80) * 0.1);
+      out.singleLegRDLProg = roundNum(estimateMaxKg('dbFloorPressAcc', strLevelPelvic) * 0.5);
+      out.landminePress = roundNum(estimateMaxKg('floorPressAcc', strLevelPelvic) * 0.35);
+    } else if(wod.id === 'pccj1'){
       out.thrusterPartner = profile.gender === 'f' ? 30 : 40; // Intermediate — recommended today given the layoff
     } else if(wod.id === 'muscleup1'){
       var pullupLevelMU = Math.max(1, Math.min(5, Math.round(getSkillScore('gym','pullups'))));
@@ -5008,7 +5169,11 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'pccj1'){
+    if(wod.programId === 'pelvicBicepChest'){
+      blockNotes.push({ name:'Pelvic Tilt Corrective', cat:'strength', note:'anterior tilt work — hip flexor release + glute/core activation, every week' });
+      blockNotes.push({ name:'Chest (Floor Press variant)', cat:'strength', note:'~' + s.floorPress + 'kg baseline — this week\'s scheme adjusts reps/tempo/load around it' });
+      blockNotes.push({ name:'Biceps (Z-Bar Curl variant)', cat:'strength', note:'~' + s.ezBarCurlProg + 'kg baseline — same logic, week-to-week variation on the same anchor lift' });
+    } else if(wod.id === 'pccj1'){
       blockNotes.push({ name:'PC&J Bracket 1 (3 reps)', cat:'oly', note:'~35kg — deliberately light after 2 weeks off, technique over load' });
       blockNotes.push({ name:'PC&J Bracket 2 (2 reps)', cat:'oly', note:'~40kg — building, still one step below the source WOD' });
       blockNotes.push({ name:'PC&J Bracket 3 (1 rep)', cat:'oly', note:'~47.5kg — genuinely working, hard stop, no chasing a heavier single today' });
@@ -5881,6 +6046,13 @@
         }
         var xpSplitText = wod.categories.map(function(c){ return '+' + xpSplit[c] + ' ' + CATEGORY_LABEL[c]; }).join(', ');
 
+        var isFinalProgramSession = false;
+        if(wod.programId){
+          var sameProgram = WEEKLY_WODS.filter(function(w){ return w.programId === wod.programId; });
+          var maxOrder = Math.max.apply(null, sameProgram.map(function(w){ return w.programOrder; }));
+          isFinalProgramSession = wod.programOrder === maxOrder;
+        }
+
         var cardId = 'wcard-' + wod.id;
         var before = snapshotCats(wod.categories);
         applyLogXp(wod.categories, xpSplit);
@@ -5893,7 +6065,11 @@
           '<div class="recovery-box">Estimated recovery: <b>' + recovery + '</b> before your next hard session in these areas.</div>' +
           impactHtml +
           barsHtml;
-        showResultModal({ xp: xpSplit, categories: wod.categories, before: before, after: after, recovery: recovery, lines: lines.concat(impactHtml ? [impactHtml] : []), dayLabel: wod.day });
+        if(isFinalProgramSession){
+          showResultModal({ xp: xpSplit, categories: wod.categories, before: before, after: after, recovery: recovery, lines: ['🎉 PROGRAM COMPLETE — you\'ve finished every session in this program. Come back and consult about next steps (new weights, new focus, next cycle) rather than repeating automatically.'].concat(lines).concat(impactHtml ? [impactHtml] : []), dayLabel: wod.day });
+        } else {
+          showResultModal({ xp: xpSplit, categories: wod.categories, before: before, after: after, recovery: recovery, lines: lines.concat(impactHtml ? [impactHtml] : []), dayLabel: wod.day });
+        }
         renderMyTrainings();
       });
     });
@@ -5908,8 +6084,9 @@
 
     var overall = overallLevel();
     var vesselsHtml = CATEGORY_ORDER.map(function(cat){ return vesselRowHtml(cat, justUpdatedCats.indexOf(cat)!==-1); }).join('');
-    var completedWodCount = WEEKLY_WODS.filter(isWodCompleted).length;
-    var weeklyHtml = WEEKLY_WODS.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('');
+    var displayWods = visibleWeeklyWods();
+    var completedWodCount = displayWods.filter(isWodCompleted).length;
+    var weeklyHtml = displayWods.map(function(wod, idx){ return weeklyCardHtml(wod, idx); }).join('');
     var workoutCardsHtml = CATEGORY_ORDER.map(workoutCardHtml).join('');
 
     app.innerHTML =
