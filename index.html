@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v2</p>
   </footer>
 </div>
 
@@ -1951,6 +1951,23 @@
 
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
+    {
+      id:'squatemom1', day:'Strength — Back Squat + EMOM Conditioning',
+      categories:['strength','cond'],
+      summary:"A 9-set ascending Back Squat ladder (5/3/1 rep scheme, climbing load), then an EMOM-until-you-can't lunge/toes-to-bar/KB swing piece that converts to AMRAP once the clock catches you.",
+      blocks:[
+        { title:"Strength — Back Squat (Every 90 sec, 9 sets)", progression:true, rounds:9, lines:[
+          { text:'Sets 1-3: 5 reps @ 60-65% · Sets 4-6: 3 reps @ 70-75% · Sets 7-9: 1 rep @ 80-85%', log:{ key:'backSquat', mode:'weight_reps', label:'Back Squat', rounds:9, roundSuggestions:[87.5,87.5,87.5,100,100,100,115,115,115] } }
+        ]},
+        { title:"Conditioning — EMOM as long as possible (14 min cap)", progression:false, completionType:'roundsAndDifficulty', maxRounds:14, lines:[
+          '8 Alternating Prisoner Static Lunges',
+          '7 Toes-to-Bar',
+          { text:'6 American KB Swings', log:{ key:'kbSwingSquat', mode:'weight_only', label:'KB Swing' } }
+        ]}
+      ],
+      notesRx:"Rx: KB 24/16kg. Intermediate: KB 20/12kg. Once a minute catches you (can't finish the round in time), it converts to a straight AMRAP for whatever's left of the 14 minutes — log how many of the 14 rounds you genuinely kept pace with, not just whether you kept moving.",
+      strengthLifts:[]
+    },
     {
       id:'pushpull1', day:'Friday — Push/Pull Supersets + Conditioning',
       categories:['strength','cond'],
@@ -5001,7 +5018,9 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'pushpull1'){
+    if(wod.id === 'squatemom1'){
+      out.kbSwingSquat = profile.gender === 'f' ? 12 : 20; // Intermediate default
+    } else if(wod.id === 'pushpull1'){
       var strLevelPP = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
       out.dbBenchPress = roundNum(estimateMaxKg('dbBenchPressAcc', strLevelPP));
       out.bentRow = roundNum(estimateMaxKg('bentOverRowAcc', strLevelPP));
@@ -5171,7 +5190,10 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'pushpull1'){
+    if(wod.id === 'squatemom1'){
+      blockNotes.push({ name:'Back Squat 9-Set Ladder', cat:'strength', note:'87.5kg → 100kg → 115kg, using your real known 1RM (140kg) — the app\'s own estimate runs high for this lift, so this is grounded in what you\'ve actually lifted' });
+      blockNotes.push({ name:'EMOM Lunges/T2B/KB Swings', cat:'cond', note:'~' + s.kbSwingSquat + 'kg — capacity test, converts to AMRAP once the clock catches you' });
+    } else if(wod.id === 'pushpull1'){
       blockNotes.push({ name:'DB Bench Press + Row Superset', cat:'strength', note:'~' + s.dbBenchPress + 'kg / ~' + s.bentRow + 'kg — balanced push/pull, straight from A into B' });
       blockNotes.push({ name:'DB Bicep Curl + Tricep Extension', cat:'strength', note:'~' + s.dbBicepCurlWod + 'kg / ~' + s.tricepExt + 'kg — arm volume right after the compound work' });
       blockNotes.push({ name:'Chipper — Box Jumps, DU, Wall Balls', cat:'cond', note:'~' + s.wallBallPP + 'kg — symmetric structure, box jumps scalable to 10 if needed' });
