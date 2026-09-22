@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v2</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v3</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v2</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v3</p>
   </footer>
 </div>
 
@@ -1951,6 +1951,35 @@
 
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
+    {
+      id:'hspu1', day:'Warm-Up + Gymnastics — HSPU Strength & Skills',
+      categories:['gym'],
+      summary:"A mobility/activation warm-up, then 15 minutes rotating through 5 HSPU-building progressions, with an advanced EMOM option for those who already have the movement.",
+      blocks:[
+        { title:'Warm-Up — Mobility (part 1)', progression:false, completionType:'doneNotDone', lines:[
+          '20 Prone Scorpions',
+          '10 per side KB Windmill (slow and controlled)'
+        ]},
+        { title:'Warm-Up — Activation (2 Rounds)', progression:false, rounds:2, lines:[
+          '5 Inchworm + Yoga Push-Up',
+          '30 sec Extended Bridge Hold'
+        ]},
+        { title:"Gymnastics — HSPU Strength & Skills (15 min technical work, rotate through all 5)", progression:false, completionType:'doneNotDone', lines:[
+          '3-6 reps Kipping to Wall Drill',
+          '1-5 reps Top to Bottom HSPU Kip',
+          '1-5 reps Tripod Headstand Kipping',
+          { text:'1-5 reps Kipping HSPU (partial, progressive range)', variantOptions:['Strict','Kipping','From Box'] },
+          '1-3 reps Eccentric HSPU'
+        ]},
+        { title:"Advanced Option — EMOM 8×90 sec (skip if the movement isn't there yet)", progression:true, rounds:8, lines:[
+          '1 Wall Walk',
+          { text:'3-5 reps Strict Wall-Facing HSPU', variantOptions:['Strict','Kipping','From Box'] },
+          'Max Wall-Facing Shoulder Taps in remaining time (30 sec work window, 60 sec rest)'
+        ]}
+      ],
+      notesRx:"Base tier is the correct choice unless the full HSPU movement is genuinely already there — the Advanced EMOM isn't a consolation-free zone, it's for people who can already do real reps. Both HSPU-specific lines have a Strict/Kipping/From Box choice; pick whichever you actually did, since that gets recorded honestly in your history rather than assumed as Rx.",
+      strengthLifts:[]
+    },
     {
       id:'squatemom1', day:'Strength — Back Squat + EMOM Conditioning',
       categories:['strength','cond'],
