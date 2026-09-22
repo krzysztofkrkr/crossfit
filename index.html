@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v3</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v4</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v3</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v4</p>
   </footer>
 </div>
 
@@ -1975,9 +1975,18 @@
           '1 Wall Walk',
           { text:'3-5 reps Strict Wall-Facing HSPU', variantOptions:['Strict','Kipping','From Box'] },
           'Max Wall-Facing Shoulder Taps in remaining time (30 sec work window, 60 sec rest)'
+        ]},
+        { title:"Conditioning — For Time (20 min cap)", progression:false, lines:[
+          { text:'10 Burpee Bar Muscle-Ups', variantOptions:['Bar MU (Rx)','Burpee + Pull-Up (Scaled)'], log:{ key:'burpeeBarMU1', mode:'count_only', label:'Burpee Bar MU/Pull-Up (1st)', unit:'reps' } },
+          { text:'20 DB Box Step-Overs', log:{ key:'boxStepOver1', mode:'weight_reps', label:'DB Box Step-Over (1st)' } },
+          { text:'30 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuCond1', mode:'count_only', label:'HSPU (1st)', unit:'reps' } },
+          { text:'40/30 Calories', log:{ key:'calsCond', mode:'count_only', label:'Calories', unit:'cals' } },
+          { text:'30 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuCond2', mode:'count_only', label:'HSPU (2nd)', unit:'reps' } },
+          { text:'20 DB Box Step-Overs', log:{ key:'boxStepOver2', mode:'weight_reps', label:'DB Box Step-Over (2nd)' } },
+          { text:'10 Burpee Bar Muscle-Ups', variantOptions:['Bar MU (Rx)','Burpee + Pull-Up (Scaled)'], log:{ key:'burpeeBarMU2', mode:'count_only', label:'Burpee Bar MU/Pull-Up (2nd)', unit:'reps' } }
         ]}
       ],
-      notesRx:"Base tier is the correct choice unless the full HSPU movement is genuinely already there — the Advanced EMOM isn't a consolation-free zone, it's for people who can already do real reps. Both HSPU-specific lines have a Strict/Kipping/From Box choice; pick whichever you actually did, since that gets recorded honestly in your history rather than assumed as Rx.",
+      notesRx:"Base tier is the correct choice unless the full HSPU movement is genuinely already there — the Advanced EMOM isn't a consolation-free zone, it's for people who can already do real reps. Both HSPU-specific lines have a Strict/Kipping/From Box choice; pick whichever you actually did, since that gets recorded honestly in your history rather than assumed as Rx.\nConditioning: DB Box Step-Over suggested at 20kg. Burpee Bar Muscle-Ups can swap to Burpee + Pull-Up if the muscle-up isn't there. Every rep count is loggable directly — if you didn't hit the full prescribed number, just log what you actually got instead of guessing a scaled preset.",
       strengthLifts:[]
     },
     {
@@ -5047,7 +5056,10 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'squatemom1'){
+    if(wod.id === 'hspu1'){
+      out.boxStepOver1 = 20;
+      out.boxStepOver2 = 20;
+    } else if(wod.id === 'squatemom1'){
       out.kbSwingSquat = profile.gender === 'f' ? 12 : 20; // Intermediate default
     } else if(wod.id === 'pushpull1'){
       var strLevelPP = Math.max(1, Math.min(5, Math.round(categoryState.strength.level + categoryState.strength.xp/100)));
@@ -5219,7 +5231,10 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'squatemom1'){
+    if(wod.id === 'hspu1'){
+      blockNotes.push({ name:'HSPU Skill Progressions', cat:'gym', note:'real technical build toward strict HSPU — rotate through all 5, don\'t skip to the hardest one' });
+      blockNotes.push({ name:'Conditioning — Symmetric Chipper', cat:'gym', note:'~' + s.boxStepOver1 + 'kg DB — Bar MU can scale to Burpee+Pull-Up, HSPU has its own Strict/Kipping/Box choice, log real reps either way' });
+    } else if(wod.id === 'squatemom1'){
       blockNotes.push({ name:'Back Squat 9-Set Ladder', cat:'strength', note:'87.5kg → 100kg → 115kg, using your real known 1RM (140kg) — the app\'s own estimate runs high for this lift, so this is grounded in what you\'ve actually lifted' });
       blockNotes.push({ name:'EMOM Lunges/T2B/KB Swings', cat:'cond', note:'~' + s.kbSwingSquat + 'kg — capacity test, converts to AMRAP once the clock catches you' });
     } else if(wod.id === 'pushpull1'){
