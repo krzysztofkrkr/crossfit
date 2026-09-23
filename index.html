@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v4</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v5</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v4</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v5</p>
   </footer>
 </div>
 
@@ -1952,134 +1952,20 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
-      id:'hspu1', day:'Warm-Up + Gymnastics — HSPU Strength & Skills',
-      categories:['gym'],
-      summary:"A mobility/activation warm-up, then 15 minutes rotating through 5 HSPU-building progressions, with an advanced EMOM option for those who already have the movement.",
-      blocks:[
-        { title:'Warm-Up — Mobility (part 1)', progression:false, completionType:'doneNotDone', lines:[
-          '20 Prone Scorpions',
-          '10 per side KB Windmill (slow and controlled)'
-        ]},
-        { title:'Warm-Up — Activation (2 Rounds)', progression:false, rounds:2, lines:[
-          '5 Inchworm + Yoga Push-Up',
-          '30 sec Extended Bridge Hold'
-        ]},
-        { title:"Gymnastics — HSPU Strength & Skills (15 min technical work, rotate through all 5)", progression:false, completionType:'doneNotDone', lines:[
-          '3-6 reps Kipping to Wall Drill',
-          '1-5 reps Top to Bottom HSPU Kip',
-          '1-5 reps Tripod Headstand Kipping',
-          { text:'1-5 reps Kipping HSPU (partial, progressive range)', variantOptions:['Strict','Kipping','From Box'] },
-          '1-3 reps Eccentric HSPU'
-        ]},
-        { title:"Advanced Option — EMOM 8×90 sec (skip if the movement isn't there yet)", progression:true, rounds:8, lines:[
-          '1 Wall Walk',
-          { text:'3-5 reps Strict Wall-Facing HSPU', variantOptions:['Strict','Kipping','From Box'] },
-          'Max Wall-Facing Shoulder Taps in remaining time (30 sec work window, 60 sec rest)'
-        ]},
-        { title:"Conditioning — For Time (20 min cap)", progression:false, lines:[
-          { text:'10 Burpee Bar Muscle-Ups', variantOptions:['Bar MU (Rx)','Burpee + Pull-Up (Scaled)'], log:{ key:'burpeeBarMU1', mode:'count_only', label:'Burpee Bar MU/Pull-Up (1st)', unit:'reps' } },
-          { text:'20 DB Box Step-Overs', log:{ key:'boxStepOver1', mode:'weight_reps', label:'DB Box Step-Over (1st)' } },
-          { text:'30 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuCond1', mode:'count_only', label:'HSPU (1st)', unit:'reps' } },
-          { text:'40/30 Calories', log:{ key:'calsCond', mode:'count_only', label:'Calories', unit:'cals' } },
-          { text:'30 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuCond2', mode:'count_only', label:'HSPU (2nd)', unit:'reps' } },
-          { text:'20 DB Box Step-Overs', log:{ key:'boxStepOver2', mode:'weight_reps', label:'DB Box Step-Over (2nd)' } },
-          { text:'10 Burpee Bar Muscle-Ups', variantOptions:['Bar MU (Rx)','Burpee + Pull-Up (Scaled)'], log:{ key:'burpeeBarMU2', mode:'count_only', label:'Burpee Bar MU/Pull-Up (2nd)', unit:'reps' } }
-        ]}
-      ],
-      notesRx:"Base tier is the correct choice unless the full HSPU movement is genuinely already there — the Advanced EMOM isn't a consolation-free zone, it's for people who can already do real reps. Both HSPU-specific lines have a Strict/Kipping/From Box choice; pick whichever you actually did, since that gets recorded honestly in your history rather than assumed as Rx.\nConditioning: DB Box Step-Over suggested at 20kg. Burpee Bar Muscle-Ups can swap to Burpee + Pull-Up if the muscle-up isn't there. Every rep count is loggable directly — if you didn't hit the full prescribed number, just log what you actually got instead of guessing a scaled preset.",
-      strengthLifts:[]
-    },
-    {
-      id:'squatemom1', day:'Strength — Back Squat + EMOM Conditioning',
+      id:'squattempo1', day:'Strength — Back Squat (Tempo) + EMOM Circuit',
       categories:['strength','cond'],
-      summary:"A 9-set ascending Back Squat ladder (5/3/1 rep scheme, climbing load), then an EMOM-until-you-can't lunge/toes-to-bar/KB swing piece that converts to AMRAP once the clock catches you.",
+      summary:"A 15-minute tempo squat block building toward a real 3RM of the day (3-2-1 tempo: slow eccentric, paused bottom, fast concentric), then a 5-round EMOM circuit rotating wall balls, calories, and burpee box jump-overs.",
       blocks:[
-        { title:"Strength — Back Squat (Every 90 sec, 9 sets)", progression:true, rounds:9, lines:[
-          { text:'Sets 1-3: 5 reps @ 60-65% · Sets 4-6: 3 reps @ 70-75% · Sets 7-9: 1 rep @ 80-85%', log:{ key:'backSquat', mode:'weight_reps', label:'Back Squat', rounds:9, roundSuggestions:[87.5,87.5,87.5,100,100,100,115,115,115] } }
+        { title:"Strength — Back Squat, Tempo 3-2-1 (Every 90 sec, build to a 3RM of the day)", progression:true, rounds:10, lines:[
+          { text:'3 reps @ tempo 3-2-1 (3 sec down, 2 sec pause at bottom, fast up) — building toward your heaviest clean triple today', log:{ key:'backSquat', mode:'weight_reps', label:'Back Squat (tempo)', rounds:10, roundSuggestions:[85,90,90,95,95,100,100,105,110,110] } }
         ]},
-        { title:"Conditioning — EMOM as long as possible (14 min cap)", progression:false, completionType:'roundsAndDifficulty', maxRounds:14, lines:[
-          '8 Alternating Prisoner Static Lunges',
-          '7 Toes-to-Bar',
-          { text:'6 American KB Swings', log:{ key:'kbSwingSquat', mode:'weight_only', label:'KB Swing' } }
+        { title:"Conditioning — EMOM 15' (5 laps through the 3-part circuit)", progression:false, lines:[
+          { text:'Min 1: 21 Wall Balls', log:{ key:'wallBallCircuit', mode:'count_only', label:'Wall Balls', rounds:5, unit:'reps' } },
+          { text:'Min 2: 15/12 Calories', log:{ key:'calsCircuit', mode:'count_only', label:'Calories', rounds:5, unit:'cals' } },
+          { text:'Min 3: 9 Burpee Box Jump-Overs (75/60cm)', log:{ key:'burpeeBoxCircuit', mode:'count_only', label:'Burpee Box Jump-Overs', rounds:5, unit:'reps' } }
         ]}
       ],
-      notesRx:"Rx: KB 24/16kg. Intermediate: KB 20/12kg. Once a minute catches you (can't finish the round in time), it converts to a straight AMRAP for whatever's left of the 14 minutes — log how many of the 14 rounds you genuinely kept pace with, not just whether you kept moving.",
-      strengthLifts:[]
-    },
-    {
-      id:'pushpull1', day:'Friday — Push/Pull Supersets + Conditioning',
-      categories:['strength','cond'],
-      summary:"A see-saw DB press/row superset straight into a bicep/tricep superset, then a symmetric burpee-box-jump/double-under/wall-ball chipper.",
-      blocks:[
-        { title:"Mixed Strength A — See-Saw DB Bench Press + Row (Every 2 min, 4 rounds)", progression:true, rounds:4, lines:[
-          { text:'See-Saw DB Bench Press × 8-12 reps', log:{ key:'dbBenchPress', mode:'weight_reps', label:'DB Bench Press', rounds:4 } },
-          { text:'See-Saw DB Bent-Over Row × 8-12 reps', log:{ key:'bentRow', mode:'weight_reps', label:'DB Bent-Over Row', rounds:4 } }
-        ]},
-        { title:"Mixed Strength B — DB Bicep Curl + Tricep Extension (Every 2 min, 4 rounds, straight into it)", progression:true, rounds:4, lines:[
-          { text:'Double DB Bicep Curl × 8-12 reps', log:{ key:'dbBicepCurlWod', mode:'weight_reps', label:'DB Bicep Curl', rounds:4 } },
-          { text:'Double DB Tricep Extension × 8-12 reps', log:{ key:'tricepExt', mode:'weight_reps', label:'DB Tricep Extension', rounds:4 } }
-        ]},
-        { title:'Conditioning — For Time (16 min cap)', progression:false, lines:[
-          { text:'20 Burpee Box Jump-Overs', variantOptions:['20 (Rx)','10 (Scaled)'] },
-          '100 Double-Unders',
-          { text:'75 Wall-Balls', log:{ key:'wallBallPP', mode:'weight_only', label:'Wall Ball' } },
-          '100 Double-Unders',
-          { text:'20 Burpee Box Jump-Overs', variantOptions:['20 (Rx)','10 (Scaled)'] }
-        ]}
-      ],
-      notesRx:"Straight from A into B, no rest between — the only rest is whatever's left in each 2-minute window. Burpee Box Jump-Overs have a scaling option on both instances — pick 10 instead of 20 for either or both if the chipper volume is too much today.",
-      strengthLifts:[]
-    },
-    {
-      id:'lungebench1', day:'Mixed Strength (Lunges + DB Bench) + Partner Conditioning',
-      categories:['strength','cond'],
-      summary:"A 5-stage ascending pyramid pairing Back Rack Reverse Lunges with DB Bench Press, then a partner relay AMRAP where you can't hand off until you clear the full double-under/deadlift/squat clean/thruster sequence.",
-      blocks:[
-        { title:'Warm-Up (partial — continue whatever came before this)', progression:false, completionType:'doneNotDone', lines:[
-          '10 Scapular Push-Ups',
-          '6 Push-Ups with a 1 sec pause at the bottom'
-        ]},
-        { title:"Mixed Strength — Back Rack Reverse Lunges + DB Bench Press (Pyramid, new set every 2'30\")", progression:true, rounds:5, lines:[
-          { text:'Back Rack Reverse Lunge, 12+12 → 4+4 reps as RPE climbs (5→6→7→8→8+/10)', log:{ key:'reverseLungeBR', mode:'weight_only', label:'Reverse Lunge', rounds:5, roundSuggestions:[30,35,42.5,47.5,55] } },
-          { text:'DB Bench Press, matching rep scheme each set', log:{ key:'dbBenchPress', mode:'weight_only', label:'DB Bench Press', rounds:5, roundSuggestions:[27.5,35,40,45,52.5] } }
-        ]},
-        { title:"Partner Conditioning — AMRAP 15' (relay, \"you go I go\")", progression:false, completionType:'amrapScore', repsPerRound:48, lines:[
-          '30 Double-Unders',
-          { text:'9 Double DB Deadlifts', log:{ key:'dbComplexPartner', mode:'weight_only', label:'DB Complex (Deadlift/Clean/Thruster)' } },
-          '6 Double DB Hang Squat Cleans',
-          '3 Double DB Thrusters',
-          'No handoff to your partner until you clear Double-Unders + the full 9-6-3 sequence'
-        ]}
-      ],
-      notesRx:"The pyramid weight should genuinely climb with the RPE — don't lock in one number for all 5 sets. Rx: DB 2×22.5/15kg. Intermediate: DB 2×17.5/10kg — the more common choice for this one, given the relay format punishes going too heavy on the DB complex more than it rewards it.",
-      strengthLifts:[]
-    },
-    {
-      id:'muscleup1', day:'Muscle-Up Skill Progressions + Conditioning',
-      categories:['gym','cond'],
-      summary:"Pick your honest tier for Muscle-Up skill work (EMOM 12'), then a 20-minute for-time piece pairing Bar Muscle-Ups, Handstand Push-Ups, and shuttle runs every 2 minutes.",
-      blocks:[
-        { title:"Skill Work — Muscle-Up Progressions (EMOM 12', pick your tier)", progression:false, completionType:'tierSelect', tiers:['Base','Intermediate','Advanced'], lines:[
-          'BASE (below a strict pull-up minimum) — EMOM 12\':',
-          '1) 5 Strict Banded Pull-Ups',
-          '2) 10 Kipping Swings',
-          '3) 6-10 Ring Dips',
-          'INTERMEDIATE (strict strength + good kipping, movement not yet achieved) — EMOM 12\':',
-          '1) 5-6 Dolphin Dives',
-          '2) 5-6 Box Entries',
-          '3) 6-10 Ring Dips',
-          'ADVANCED (comfortable with the movement, can accumulate reps solidly) — EMOM 12\':',
-          { text:'1) 3-5 Weighted Pull-Ups', log:{ key:'weightedPullupMU', mode:'weight_only', label:'Weighted Pull-Up (added)' } },
-          '2) 3-6 Bar Muscle-Ups',
-          '3) 6-10 Ring Dips'
-        ]},
-        { title:"Conditioning — Every 2 min for 20' (For Time)", progression:false, lines:[
-          { text:'3 Bar Muscle-Ups', boxOption:true, log:{ key:'bmuReps', mode:'count_only', label:'Bar Muscle-Ups', rounds:10, unit:'reps' } },
-          { text:'6 Handstand Push-Ups', variantOptions:['Strict','Kipping','From Box'], log:{ key:'hspuReps', mode:'count_only', label:'Handstand Push-Ups', rounds:10, unit:'reps' } },
-          { text:'5 Shuttle Runs (1 rep = there and back)', log:{ key:'shuttleReps', mode:'count_only', label:'Shuttle Runs', rounds:10, unit:'reps' } }
-        ]}
-      ],
-      notesRx:"Rx: Bar Muscle-Up · HSPU with kipping · 12/8 cals. BMU has a From Box option; HSPU has Strict/Kipping/From Box — pick whichever you actually did.",
+      notesRx:"Rx: Wall Ball 9/6kg · 15/12 cals · box 75/60cm. Intermediate: Wall Ball 9kg (unchanged) · 12 cals · box 60cm. Every part of the EMOM circuit is loggable per lap (5 laps total) — log the real number you got in each minute, not just whether you finished.",
       strengthLifts:[]
     },
     {
@@ -5231,7 +5117,10 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'hspu1'){
+    if(wod.id === 'squattempo1'){
+      blockNotes.push({ name:'Back Squat Tempo Ladder', cat:'strength', note:'85kg → 110kg across 10 sets, using your real known 1RM (140kg) — tempo keeps the top end honest rather than chasing a true max' });
+      blockNotes.push({ name:'EMOM Wall Ball/Cals/Box Jumps', cat:'cond', note:'5 laps, each part logged separately — real per-minute output, not just pass/fail' });
+    } else if(wod.id === 'hspu1'){
       blockNotes.push({ name:'HSPU Skill Progressions', cat:'gym', note:'real technical build toward strict HSPU — rotate through all 5, don\'t skip to the hardest one' });
       blockNotes.push({ name:'Conditioning — Symmetric Chipper', cat:'gym', note:'~' + s.boxStepOver1 + 'kg DB — Bar MU can scale to Burpee+Pull-Up, HSPU has its own Strict/Kipping/Box choice, log real reps either way' });
     } else if(wod.id === 'squatemom1'){
