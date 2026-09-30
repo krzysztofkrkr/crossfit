@@ -739,7 +739,7 @@
 </head>
 <body>
 
-<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-15-v6</div>
+<div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-30-v2</div>
 
 <div class="wrap">
   <header class="bg-hero" id="pageHeader">
@@ -765,7 +765,7 @@
 
   <footer>
     <p class="footnote">This is a coaching estimate, not a certification. Ratios, rep targets, and progression percentages are directional averages — actual capacity varies by leverages, training age, and mobility. Scale everything and check with a coach before testing a true 1RM. All weights are in kilograms. Progress is saved to this browser only.</p>
-    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-15-v6</p>
+    <p class="watermark-bottom">Made by Krzysztof Leśniak · Build: 2026-09-30-v2</p>
   </footer>
 </div>
 
@@ -1951,6 +1951,28 @@
 
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
+    {
+      id:'snatchvar1', day:'Weightlifting — Snatch Variations + Metcon',
+      categories:['oly','cond'],
+      summary:"A 15-minute running clock, one complex per minute across three ascending-load 5-minute blocks (Low Hang Power Snatch → Low Hang Deep Power Snatch → Low Hang Squat Snatch), then a 10-minute AMRAP pairing double-unders with power snatches.",
+      blocks:[
+        { title:"Weightlifting A — EMOM 5' (light load, 30-50%, RPE 4/10)", progression:true, rounds:5, lines:[
+          { text:'1 Snatch Pull + 3 Low Hang Power Snatch', log:{ key:'snatchVarA', mode:'weight_only', label:'Complex A (light)', rounds:5 } }
+        ]},
+        { title:"Weightlifting B — EMOM 5' (moderate load, 55-70%, RPE 6/10)", progression:true, rounds:5, lines:[
+          { text:'1 Snatch Pull + 2 Low Hang Deep Power Snatch', log:{ key:'snatchVarB', mode:'weight_only', label:'Complex B (moderate)', rounds:5 } }
+        ]},
+        { title:"Weightlifting C — EMOM 5' (heavy load, 70-85%, RPE 8/10)", progression:true, rounds:5, lines:[
+          { text:'1 Snatch Pull + 1 Low Hang Squat Snatch', log:{ key:'snatchVarC', mode:'weight_only', label:'Complex C (heavy)', rounds:5 } }
+        ]},
+        { title:"Metcon — AMRAP 10'", progression:false, completionType:'amrapScore', repsPerRound:45, lines:[
+          '36 Double-Unders',
+          { text:'9 Power Snatches', log:{ key:'powerSnatchMetcon', mode:'weight_only', label:'Power Snatch' } }
+        ]}
+      ],
+      notesRx:"One complex per minute for the full 15' running clock — no rest built in beyond whatever's left after each complex. Load should genuinely step up A → B → C; RPE 8 on C is a real top-end effort. The Metcon snatch weight is deliberately lighter than the EMOM's heavy end — this is a 10-minute capacity piece, not a strength test.",
+      strengthLifts:[]
+    },
     {
       id:'cjvar1', day:'Weightlifting — Clean & Jerk Variations + Conditioning',
       categories:['oly','cond'],
@@ -4969,7 +4991,14 @@
 
   function wodSuggestedWeights(wod){
     var out = {};
-    if(wod.id === 'cjvar1'){
+    if(wod.id === 'snatchvar1'){
+      // Corrected to the user's real confirmed 1RM (90kg) — the earlier 65kg ladder max
+      // was solid demonstrated work, but clearly not an actual max effort.
+      out.snatchVarA = 35;
+      out.snatchVarB = 57.5;
+      out.snatchVarC = 70;
+      out.powerSnatchMetcon = 35;
+    } else if(wod.id === 'cjvar1'){
       out.cjComplexA = 40;
       out.cjComplexB = 50;
       out.cjComplexC = 60;
@@ -5150,7 +5179,12 @@
   function wodInsightBlockNotes(wod){
     var s = wodSuggestedWeights(wod);
     var blockNotes = [];
-    if(wod.id === 'cjvar1'){
+    if(wod.id === 'snatchvar1'){
+      blockNotes.push({ name:'Complex A (light, RPE 4)', cat:'oly', note:'~' + s.snatchVarA + 'kg — Snatch Pull + 3 Low Hang Power Snatch, warming the pattern' });
+      blockNotes.push({ name:'Complex B (moderate, RPE 6)', cat:'oly', note:'~' + s.snatchVarB + 'kg — deeper catch position, load climbing' });
+      blockNotes.push({ name:'Complex C (heavy, RPE 8)', cat:'oly', note:'~' + s.snatchVarC + 'kg — full squat snatch, based on your confirmed real 1RM of 90kg' });
+      blockNotes.push({ name:'Metcon — DU + Power Snatch', cat:'cond', note:'~' + s.powerSnatchMetcon + 'kg — deliberately light, this is a 10-min capacity test' });
+    } else if(wod.id === 'cjvar1'){
       blockNotes.push({ name:'Complex A (light, RPE 4)', cat:'oly', note:'~' + s.cjComplexA + 'kg — 5-part complex, all unbroken, warming the whole chain' });
       blockNotes.push({ name:'Complex B (moderate, RPE 6)', cat:'oly', note:'~' + s.cjComplexB + 'kg — drops the push press, load climbs' });
       blockNotes.push({ name:'Complex C (heavy, RPE 8)', cat:'oly', note:'~' + s.cjComplexC + 'kg — 3-part complex, genuine top-end effort' });
