@@ -1952,6 +1952,33 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
+      id:'mondaySquatClean', day:'Monday',
+      categories:['oly','cond'],
+      summary:"A 15-minute squat-clean skill and strength block: a light clean complex every 30 seconds, then build toward a solid 1RM Squat Clean. Finish with an 18-minute partner accumulation workout split into two mirrored parts.",
+      blocks:[
+        { title:"A1 — Squat Clean Complex (0:00–5:00, every 30 sec × 10 rounds)", progression:true, rounds:10, lines:[
+          { text:'1 Slow Clean Pull + 1 Drop Clean + 1 Squat Clean — empty barbell or light load', log:{ key:'squatCleanComplexA1', mode:'weight_reps', label:'Squat Clean Complex A1', rounds:10, roundSuggestions:[20,20,20,20,20,20,20,20,20,20] } }
+        ]},
+        { title:"A2 — Build to 1RM Squat Clean (5:00–15:00)", progression:true, rounds:10, lines:[
+          { text:'1–3 Squat Cleans — start around 30% 1RM at RPE 3, gradually increase load; finish with one heavy, solid single. No failed attempts and no forcing positions.', log:{ key:'squatClean1RM', mode:'weight_reps', label:'Squat Clean 1RM build', rounds:10, roundSuggestions:[30,35,40,45,50,55,60,65,70,75] } }
+        ]},
+        { title:"Partner Workout — Accumulate A + B (18-minute cap)", progression:false, completionType:'repsOrDone', repsFields:[
+          { key:'aT2B', label:'A — Synchronized Toes to Bar', total:30 },
+          { key:'aLateralBurpees', label:'A — Synchronized Lateral Burpees Over the Bar', total:30 },
+          { key:'aSquatCleans', label:'A — Squat Cleans, alternating', total:30 },
+          { key:'bSquatCleans', label:'B — Squat Cleans, alternating', total:30 },
+          { key:'bLateralBurpees', label:'B — Synchronized Lateral Burpees Over the Bar', total:30 },
+          { key:'bT2B', label:'B — Synchronized Toes to Bar', total:30 }
+        ], lines:[
+          { text:'A — as fast as possible: 30 synchronized Toes to Bar, 30 synchronized lateral burpees over the bar, 30 Squat Cleans alternating with your partner', log:{ key:'partnerA', mode:'count_only', label:'Partner Workout A', unit:'reps' } },
+          { title:'', text:'Rest exactly 2 minutes, then begin part B.' },
+          { text:'B — as fast as possible: 30 Squat Cleans alternating with your partner, 30 synchronized lateral burpees over the bar, 30 synchronized Toes to Bar', log:{ key:'partnerB', mode:'count_only', label:'Partner Workout B', unit:'reps' } }
+        ]}
+      ],
+      notesRx:"A1 is technique and rhythm work: use an empty barbell or a light load, keep positions clean, and do not rush the transition from pull to catch. A2 is a controlled 1RM build — stop before a failed attempt. In the partner workout, synchronized means both athletes complete each rep together; alternate Squat Cleans one rep at a time. Scale Toes to Bar, burpees, and clean load so each partner can maintain quality movement for the full 18-minute cap.",
+      strengthLifts:[]
+    },
+    {
       id:'snatchvar1', day:'Weightlifting — Snatch Variations + Metcon',
       categories:['oly','cond'],
       summary:"A 15-minute running clock, one complex per minute across three ascending-load 5-minute blocks (Low Hang Power Snatch → Low Hang Deep Power Snatch → Low Hang Squat Snatch), then a 10-minute AMRAP pairing double-unders with power snatches.",
