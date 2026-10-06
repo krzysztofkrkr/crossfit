@@ -1957,11 +1957,16 @@
       summary:"Bench press + deadlift w superserii, z progresją do ciężkiej i solidnej serii 3 powtórzeń, następnie 3 rundy conditioning z double-unders, wall balls i dumbbell deadlifts.",
       blocks:[
         { title:"Mixed Strength — Bench Press + Deadlifts (superset, co 2:30 × 5 serii)", progression:true, rounds:5, lines:[
-          { text:'S1: 7 Bench Press + 7 Deadlifts @ 50% · RPE 5/10', log:{ key:'martesS1', mode:'weight_reps', label:'S1 Bench Press + Deadlift', rounds:1 } },
-          { text:'S2: 6 Bench Press + 6 Deadlifts @ 60% · RPE 6/10', log:{ key:'martesS2', mode:'weight_reps', label:'S2 Bench Press + Deadlift', rounds:1 } },
-          { text:'S3: 5 Bench Press + 5 Deadlifts @ 70% · RPE 7/10', log:{ key:'martesS3', mode:'weight_reps', label:'S3 Bench Press + Deadlift', rounds:1 } },
-          { text:'S4: 4 Bench Press + 4 Deadlifts @ 80% · RPE 8/10', log:{ key:'martesS4', mode:'weight_reps', label:'S4 Bench Press + Deadlift', rounds:1 } },
-          { text:'S5: 3 Bench Press + 3 Deadlifts @ 85% · RPE 8+/10', log:{ key:'martesS5', mode:'weight_reps', label:'S5 Bench Press + Deadlift', rounds:1 } }
+          { text:'S1: 7 Bench Press @ 50% · RPE 5/10', log:{ key:'martesBenchS1', mode:'weight_reps', label:'Bench Press — S1', rounds:1 } },
+          { text:'S1: 7 Deadlifts @ 50% · RPE 5/10', log:{ key:'martesDeadliftS1', mode:'weight_reps', label:'Deadlift — S1', rounds:1 } },
+          { text:'S2: 6 Bench Press @ 60% · RPE 6/10', log:{ key:'martesBenchS2', mode:'weight_reps', label:'Bench Press — S2', rounds:1 } },
+          { text:'S2: 6 Deadlifts @ 60% · RPE 6/10', log:{ key:'martesDeadliftS2', mode:'weight_reps', label:'Deadlift — S2', rounds:1 } },
+          { text:'S3: 5 Bench Press @ 70% · RPE 7/10', log:{ key:'martesBenchS3', mode:'weight_reps', label:'Bench Press — S3', rounds:1 } },
+          { text:'S3: 5 Deadlifts @ 70% · RPE 7/10', log:{ key:'martesDeadliftS3', mode:'weight_reps', label:'Deadlift — S3', rounds:1 } },
+          { text:'S4: 4 Bench Press @ 80% · RPE 8/10', log:{ key:'martesBenchS4', mode:'weight_reps', label:'Bench Press — S4', rounds:1 } },
+          { text:'S4: 4 Deadlifts @ 80% · RPE 8/10', log:{ key:'martesDeadliftS4', mode:'weight_reps', label:'Deadlift — S4', rounds:1 } },
+          { text:'S5: 3 Bench Press @ 85% · RPE 8+/10', log:{ key:'martesBenchS5', mode:'weight_reps', label:'Bench Press — S5', rounds:1 } },
+          { text:'S5: 3 Deadlifts @ 85% · RPE 8+/10', log:{ key:'martesDeadliftS5', mode:'weight_reps', label:'Deadlift — S5', rounds:1 } }
         ]},
         { title:"Conditioning — 3 rounds for time (20-minute cap)", progression:false, rounds:3, lines:[
           { text:'40 Double-Unders', log:{ key:'martesDU', mode:'count_only', label:'Double-Unders', rounds:3, unit:'reps' } },
@@ -5017,7 +5022,14 @@
 
   function wodSuggestedWeights(wod){
     if(wod.id === 'martesBenchDeadlift'){
-      return { martesS1:'55 kg bench / 70 kg deadlift', martesS2:'65 kg bench / 85 kg deadlift', martesS3:'77.5 kg bench / 100 kg deadlift', martesS4:'87.5 kg bench / 112.5 kg deadlift', martesS5:'92.5 kg bench / 120 kg deadlift', martesDU:'40', martesDU2:'40', martesWallBalls:'30', martesDBDL:'2×17.5 kg'};
+      return {
+        martesBenchS1:55, martesDeadliftS1:70,
+        martesBenchS2:65, martesDeadliftS2:85,
+        martesBenchS3:77.5, martesDeadliftS3:100,
+        martesBenchS4:87.5, martesDeadliftS4:112.5,
+        martesBenchS5:92.5, martesDeadliftS5:120,
+        martesDBDL:'2×17.5 kg'
+      };
     }
 
     var out = {};
