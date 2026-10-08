@@ -1952,34 +1952,31 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
-      id:'martesBenchDeadlift', day:'Wtorek',
-      categories:['strength','cond'],
-      summary:"Bench press + deadlift w superserii, z progresją do ciężkiej i solidnej serii 3 powtórzeń, następnie 3 rundy conditioning z double-unders, wall balls i dumbbell deadlifts.",
+      id:'czwartekJerkIntervals', day:'Czwartek',
+      categories:['oly','gym','cond'],
+      summary:"Jerk work from the rack: paused split-jerk positions, then a controlled build to a heavy 3RM. Finish with nine 90-second conditioning stations over three A–B–C rounds.",
       blocks:[
-        { title:"Mixed Strength — Bench Press + Deadlifts (superset, co 2:30 × 5 serii)", progression:true, rounds:5, lines:[
-          { text:'S1: 7 Bench Press @ 50% · RPE 5/10', log:{ key:'martesBenchS1', mode:'weight_reps', label:'Bench Press — S1', rounds:1 } },
-          { text:'S1: 7 Deadlifts @ 50% · RPE 5/10', log:{ key:'martesDeadliftS1', mode:'weight_reps', label:'Deadlift — S1', rounds:1 } },
-          { text:'S2: 6 Bench Press @ 60% · RPE 6/10', log:{ key:'martesBenchS2', mode:'weight_reps', label:'Bench Press — S2', rounds:1 } },
-          { text:'S2: 6 Deadlifts @ 60% · RPE 6/10', log:{ key:'martesDeadliftS2', mode:'weight_reps', label:'Deadlift — S2', rounds:1 } },
-          { text:'S3: 5 Bench Press @ 70% · RPE 7/10', log:{ key:'martesBenchS3', mode:'weight_reps', label:'Bench Press — S3', rounds:1 } },
-          { text:'S3: 5 Deadlifts @ 70% · RPE 7/10', log:{ key:'martesDeadliftS3', mode:'weight_reps', label:'Deadlift — S3', rounds:1 } },
-          { text:'S4: 4 Bench Press @ 80% · RPE 8/10', log:{ key:'martesBenchS4', mode:'weight_reps', label:'Bench Press — S4', rounds:1 } },
-          { text:'S4: 4 Deadlifts @ 80% · RPE 8/10', log:{ key:'martesDeadliftS4', mode:'weight_reps', label:'Deadlift — S4', rounds:1 } },
-          { text:'S5: 3 Bench Press @ 85% · RPE 8+/10', log:{ key:'martesBenchS5', mode:'weight_reps', label:'Bench Press — S5', rounds:1 } },
-          { text:'S5: 3 Deadlifts @ 85% · RPE 8+/10', log:{ key:'martesDeadliftS5', mode:'weight_reps', label:'Deadlift — S5', rounds:1 } }
+        { title:"Weightlifting A — Jerk Positions (5 series · every 1:30 · progressive)", progression:true, rounds:5, lines:[
+          { text:'1 Push Press + 2 Paused Split Jerks — pause 3 sec in the receiving position of every split jerk', log:{ key:'thuJerkPaused', mode:'weight_reps', label:'Push Press + Paused Split Jerks', rounds:5, roundSuggestions:[30,35,40,45,50] } }
         ]},
-        { title:"Conditioning — 3 rounds for time (20-minute cap)", progression:false, rounds:3, lines:[
-          { text:'40 Double-Unders', log:{ key:'martesDU', mode:'count_only', label:'Double-Unders', rounds:3, unit:'reps' } },
-          { text:'30 Wall Balls', log:{ key:'martesWallBalls', mode:'count_only', label:'Wall Balls', rounds:3, unit:'reps' } },
-          { text:'40 Double-Unders', log:{ key:'martesDU2', mode:'count_only', label:'Double-Unders — second set', rounds:3, unit:'reps' } },
-          { text:'30 Dumbbell Deadlifts', log:{ key:'martesDBDL', mode:'count_only', label:'Dumbbell Deadlifts', rounds:3, unit:'reps' } }
+        { title:"Weightlifting B — Split Jerk 3RM (5 series · every 1:30 · progressive)", progression:true, rounds:5, lines:[
+          { text:'3 Split Jerks from the rack, no pause — build to one heavy and solid 3RM of the day', log:{ key:'thuSplitJerk3RM', mode:'weight_reps', label:'Split Jerk 3RM build', rounds:5, roundSuggestions:[40,45,50,55,60] } }
         ]},
-        { title:"Weights and scaling", progression:false, completionType:'tierSelect', tiers:['Rx — DB 2×22.5 kg / 2×15 kg · Wall Ball 9/6 kg · Double-Unders','Intermediate — DB 2×17.5 kg / 2×10 kg · scale DU as needed','Other — choose a load that keeps every round technically sound'], lines:[
-          'Rx: DB 2×22.5/15 kg · wall ball 9/6 kg · double-unders',
-          'Intermediate: DB 2×17.5/10 kg'
+        { title:"Conditioning — Intervals (every 90 sec · 9 stations · 3 rounds of A–B–C)", progression:false, completionType:'repsOrDone', repsFields:[
+          { key:'aC2BPullUps', label:'A — Chest to Bar / Pull-Ups', total:36 },
+          { key:'bBoxJumpOvers', label:'B — Box Jump Overs, step down', total:36 },
+          { key:'cAmericanKBSwings', label:'C — American KB Swings', total:36 }
+        ], lines:[
+          { text:'A: 30 sec maximum calories + 12 Chest to Bar / Pull-Ups', log:{ key:'thuCals', mode:'count_only', label:'Calories completed in A', rounds:3, unit:'cals' } },
+          { text:'B: 30 sec maximum shuttle run + 12 Box Jump Overs — step down', log:{ key:'thuShuttleRuns', mode:'count_only', label:'Shuttle-run reps completed in B', rounds:3, unit:'reps' } },
+          { text:'C: 30 sec maximum A-Jumps + 12 American KB Swings @ 20 kg', log:{ key:'thuAJumps', mode:'count_only', label:'A-Jumps completed in C', rounds:3, unit:'reps' } }
+        ]},
+        { title:"Intermediate scaling", progression:false, completionType:'tierSelect', tiers:['Intermediate — 12 reps in each A/B/C block · American KB Swings 20 kg','Rx — use the programmed movement standards and loads','Other — choose a scale that preserves movement quality across all 9 stations'], lines:[
+          'Intermediate: 12 repetitions in every A, B and C station.',
+          'American KB Swings: 20 kg.'
         ]}
       ],
-      notesRx:"Ciężary siłowe są wyliczone z Twoich zapisanych wyników: Bench Press 1RM 110 kg i Deadlift 1RM 140 kg. Przy 195 cm wzrostu i masie 105 kg priorytetem jest kontrola pozycji i nieprzeciążanie odcinka lędźwiowego. S1–S4 powinny być czyste; S5 ma być ciężkie, ale bez grindujących powtórzeń i bez utraty pozycji. Jeśli 85% okaże się zbyt agresywne po superserii, zakończ na 80% lub użyj 82,5%.",
+      notesRx:"W części A priorytetem jest stabilna pozycja w split jerk: zatrzymaj się na pełne 3 sekundy po każdym przyjęciu, utrzymując napięty brzuch i aktywny tył nogi. W części B buduj obciążenie bez nieudanych prób — ostatnia seria ma być ciężkim, solidnym triplem, nie maksymalnym ryzykiem. Conditioning: każda stacja trwa 90 sekund; po 30 sekundach maksymalnej pracy wykonaj 12 powtórzeń przypisanego ruchu, a pozostały czas wykorzystaj na przejście i przygotowanie do następnej stacji. Dla wersji Intermediate: 12 powtórzeń w każdym bloku i kettlebell 20 kg.",
       strengthLifts:[]
     },
     {
@@ -4432,6 +4429,10 @@
      WODs — completing one reveals the next automatically, exactly like a real program
      should behave, instead of dumping all 6 weeks on the list at once. */
   function visibleWeeklyWods(){
+    var lockedVisibleWodIds = ['czwartekJerkIntervals', 'pelvicW6'];
+    var lockedVisibleWods = WEEKLY_WODS.filter(function(wod){ return lockedVisibleWodIds.indexOf(wod.id) !== -1; });
+    if(lockedVisibleWods.length) return lockedVisibleWods;
+
     var groups = {};
     WEEKLY_WODS.forEach(function(wod){
       if(wod.programId){
@@ -5021,17 +5022,6 @@
   }
 
   function wodSuggestedWeights(wod){
-    if(wod.id === 'martesBenchDeadlift'){
-      return {
-        martesBenchS1:55, martesDeadliftS1:70,
-        martesBenchS2:65, martesDeadliftS2:85,
-        martesBenchS3:77.5, martesDeadliftS3:100,
-        martesBenchS4:87.5, martesDeadliftS4:112.5,
-        martesBenchS5:92.5, martesDeadliftS5:120,
-        martesDBDL:'2×17.5 kg'
-      };
-    }
-
     var out = {};
     if(wod.id === 'snatchvar1'){
       // Corrected to the user's real confirmed 1RM (90kg) — the earlier 65kg ladder max
