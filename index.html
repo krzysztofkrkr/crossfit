@@ -1952,34 +1952,6 @@
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
     {
-      id:'czwartekJerkIntervals', day:'Czwartek',
-      categories:['oly','gym','cond'],
-      summary:"Jerk work from the rack: paused split-jerk positions, then a controlled build to a heavy 3RM. Finish with nine 90-second conditioning stations over three A–B–C rounds.",
-      blocks:[
-        { title:"Weightlifting A — Jerk Positions (5 series · every 1:30 · progressive)", progression:true, rounds:5, lines:[
-          { text:'1 Push Press + 2 Paused Split Jerks — pause 3 sec in the receiving position of every split jerk', log:{ key:'thuJerkPaused', mode:'weight_reps', label:'Push Press + Paused Split Jerks', rounds:5, roundSuggestions:[30,35,40,45,50] } }
-        ]},
-        { title:"Weightlifting B — Split Jerk 3RM (5 series · every 1:30 · progressive)", progression:true, rounds:5, lines:[
-          { text:'3 Split Jerks from the rack, no pause — build to one heavy and solid 3RM of the day', log:{ key:'thuSplitJerk3RM', mode:'weight_reps', label:'Split Jerk 3RM build', rounds:5, roundSuggestions:[40,45,50,55,60] } }
-        ]},
-        { title:"Conditioning — Intervals (every 90 sec · 9 stations · 3 rounds of A–B–C)", progression:false, completionType:'repsOrDone', repsFields:[
-          { key:'aC2BPullUps', label:'A — Chest to Bar / Pull-Ups', total:36 },
-          { key:'bBoxJumpOvers', label:'B — Box Jump Overs, step down', total:36 },
-          { key:'cAmericanKBSwings', label:'C — American KB Swings', total:36 }
-        ], lines:[
-          { text:'A: 30 sec maximum calories + 12 Chest to Bar / Pull-Ups', log:{ key:'thuCals', mode:'count_only', label:'Calories completed in A', rounds:3, unit:'cals' } },
-          { text:'B: 30 sec maximum shuttle run + 12 Box Jump Overs — step down', log:{ key:'thuShuttleRuns', mode:'count_only', label:'Shuttle-run reps completed in B', rounds:3, unit:'reps' } },
-          { text:'C: 30 sec maximum A-Jumps + 12 American KB Swings @ 20 kg', log:{ key:'thuAJumps', mode:'count_only', label:'A-Jumps completed in C', rounds:3, unit:'reps' } }
-        ]},
-        { title:"Intermediate scaling", progression:false, completionType:'tierSelect', tiers:['Intermediate — 12 reps in each A/B/C block · American KB Swings 20 kg','Rx — use the programmed movement standards and loads','Other — choose a scale that preserves movement quality across all 9 stations'], lines:[
-          'Intermediate: 12 repetitions in every A, B and C station.',
-          'American KB Swings: 20 kg.'
-        ]}
-      ],
-      notesRx:"W części A priorytetem jest stabilna pozycja w split jerk: zatrzymaj się na pełne 3 sekundy po każdym przyjęciu, utrzymując napięty brzuch i aktywny tył nogi. W części B buduj obciążenie bez nieudanych prób — ostatnia seria ma być ciężkim, solidnym triplem, nie maksymalnym ryzykiem. Conditioning: każda stacja trwa 90 sekund; po 30 sekundach maksymalnej pracy wykonaj 12 powtórzeń przypisanego ruchu, a pozostały czas wykorzystaj na przejście i przygotowanie do następnej stacji. Dla wersji Intermediate: 12 powtórzeń w każdym bloku i kettlebell 20 kg.",
-      strengthLifts:[]
-    },
-    {
       id:'snatchvar1', day:'Weightlifting — Snatch Variations + Metcon',
       categories:['oly','cond'],
       summary:"A 15-minute running clock, one complex per minute across three ascending-load 5-minute blocks (Low Hang Power Snatch → Low Hang Deep Power Snatch → Low Hang Squat Snatch), then a 10-minute AMRAP pairing double-unders with power snatches.",
@@ -2062,7 +2034,11 @@
           { text:'Z-Bar Curl × 10', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl', rounds:4 } }
         ]}
       ],
-      notesRx:"Week 1 of 6 — this session's weights become your baseline. Week 6 retests at this exact same weight for max reps, so log real numbers here, not a guess.",
+              { title:'Core Finisher — 8 min, progressive foundation', progression:false, completionType:'roundsAndDifficulty', maxRounds:4, lines:[
+          'Every 2 min × 4 rounds: 10/side CrossFit Ball Side Toss + 20 sec Hollow Hold',
+          'Use a light ball; brace before every throw and keep ribs down.'
+        ]},
+notesRx:"Week 1 of 6 — this session's weights become your baseline. Week 6 retests at this exact same weight for max reps, so log real numbers here, not a guess.",
       strengthLifts:[]
     },
     {
@@ -2082,7 +2058,11 @@
           { text:'Z-Bar Curl × 8 @ tempo 3-0-1 (3 sec down, 1 sec up)', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl (tempo)', rounds:4 } }
         ]}
       ],
-      notesRx:"Week 2 of 6 — expect to use slightly less weight than Week 1 at this tempo; the slow eccentric is the point, not the number on the bar.",
+              { title:'Core Finisher — 8 min, anti-extension control', progression:false, completionType:'roundsAndDifficulty', maxRounds:4, lines:[
+          'Every 2 min × 4 rounds: 8/side CrossFit Ball Side Toss + 8 Dead Bugs/side',
+          'Progress only if the lower back stays controlled against the floor.'
+        ]},
+notesRx:"Week 2 of 6 — expect to use slightly less weight than Week 1 at this tempo; the slow eccentric is the point, not the number on the bar.",
       strengthLifts:[]
     },
     {
@@ -2104,7 +2084,11 @@
           'Band Curl to failure — 2 sets, both arms'
         ]}
       ],
-      notesRx:"Week 3 of 6 — this is a pump/volume week. Weight drops, reps and burn go up. The med ball squeeze is isometric — squeeze hard through the whole rep, don't rush it.",
+              { title:'Core Finisher — 9 min, rotational volume', progression:false, completionType:'roundsAndDifficulty', maxRounds:3, lines:[
+          'Every 3 min × 3 rounds: 12/side CrossFit Ball Side Toss + 12 Alternating V-Ups',
+          'Keep the throw explosive but stop before rotation comes from the lumbar spine.'
+        ]},
+notesRx:"Week 3 of 6 — this is a pump/volume week. Weight drops, reps and burn go up. The med ball squeeze is isometric — squeeze hard through the whole rep, don't rush it.",
       strengthLifts:[]
     },
     {
@@ -2126,7 +2110,11 @@
           '3-5 Rope Climb ascents (partial climbs are fine — real grip/bicep/lat load either way)'
         ]}
       ],
-      notesRx:"Week 4 of 6 — genuinely heavier, lower reps. The rope climb is there specifically for grip and bicep loading you can't get from curls alone.",
+              { title:'Core Finisher — 10 min, progressive strength', progression:false, completionType:'roundsAndDifficulty', maxRounds:5, lines:[
+          'Every 2 min × 5 rounds: 8/side Heavy CrossFit Ball Side Toss + 20 sec Side Plank/side',
+          'Use a slightly heavier ball than Week 3 only if all throws remain crisp.'
+        ]},
+notesRx:"Week 4 of 6 — genuinely heavier, lower reps. The rope climb is there specifically for grip and bicep loading you can't get from curls alone.",
       strengthLifts:[]
     },
     {
@@ -2146,7 +2134,11 @@
           '12 per side Single-Arm Band Curl'
         ]}
       ],
-      notesRx:"Week 5 of 6 — pay attention to any side that feels noticeably weaker or less stable. That's exactly the imbalance this week is designed to surface.",
+              { title:'Core Finisher — 8 min, unilateral anti-rotation', progression:false, completionType:'roundsAndDifficulty', maxRounds:4, lines:[
+          'Every 2 min × 4 rounds: 10/side CrossFit Ball Side Toss + 10/side Bird Dog with 3 sec hold',
+          'Match the quality and range on both sides.'
+        ]},
+notesRx:"Week 5 of 6 — pay attention to any side that feels noticeably weaker or less stable. That's exactly the imbalance this week is designed to surface.",
       strengthLifts:[]
     },
     {
@@ -2168,7 +2160,11 @@
           { text:'Z-Bar Curl — max reps @ your Week 1 weight', log:{ key:'ezBarCurlProg', mode:'weight_reps', label:'Z-Bar Curl (retest)' } }
         ]}
       ],
-      notesRx:"Week 6 of 6 — use the exact same weight you logged in Week 1 for both lifts, and just go for max clean reps. More reps than Week 1 at the same weight is your real progress marker for this cycle.",
+              { title:'Core Finisher — 10 min, controlled retest', progression:false, completionType:'roundsAndDifficulty', maxRounds:5, lines:[
+          'Every 2 min × 5 rounds: 10/side CrossFit Ball Side Toss + 30 sec Hollow Hold',
+          'Keep the same ball as Week 1 if possible and compare quality, speed and control.'
+        ]},
+notesRx:"Week 6 of 6 — use the exact same weight you logged in Week 1 for both lifts, and just go for max clean reps. More reps than Week 1 at the same weight is your real progress marker for this cycle.",
       strengthLifts:[]
     }
   ];
@@ -4421,6 +4417,11 @@
      "{day} WOD") — once logged, it drops off This Week's WODs so the list reflects what's
      actually left to do, rather than showing sessions you've already finished. */
   function isWodCompleted(wod){
+    if(wod.programId){
+      return trainingHistory.some(function(e){
+        return e.programId === wod.programId && e.programOrder === wod.programOrder;
+      });
+    }
     return trainingHistory.some(function(e){ return e.label === wod.day + ' WOD'; });
   }
 
@@ -4429,10 +4430,6 @@
      WODs — completing one reveals the next automatically, exactly like a real program
      should behave, instead of dumping all 6 weeks on the list at once. */
   function visibleWeeklyWods(){
-    var lockedVisibleWodIds = ['czwartekJerkIntervals', 'pelvicW6'];
-    var lockedVisibleWods = WEEKLY_WODS.filter(function(wod){ return lockedVisibleWodIds.indexOf(wod.id) !== -1; });
-    if(lockedVisibleWods.length) return lockedVisibleWods;
-
     var groups = {};
     WEEKLY_WODS.forEach(function(wod){
       if(wod.programId){
@@ -4794,10 +4791,11 @@
     return m + ':' + (s<10?'0':'') + s + ' (' + Math.round(sec) + ' sec)';
   }
 
-  function logHistoryEntry(label, categories, xp, details){
+  function logHistoryEntry(label, categories, xp, details, programId, programOrder){
     var levelsAfter = {};
     CATEGORY_ORDER.forEach(function(cat){ levelsAfter[cat] = Math.round((categoryState[cat].level + categoryState[cat].xp/100) * 10) / 10; });
     var entry = { date: new Date().toISOString().slice(0,10), label: label, categories: categories, xp: xp, levelsAfter: levelsAfter };
+    if(programId){ entry.programId = programId; entry.programOrder = programOrder; }
     if(details && details.length) entry.details = details;
     trainingHistory.push(entry);
     if(trainingHistory.length > MAX_HISTORY_ENTRIES) trainingHistory = trainingHistory.slice(trainingHistory.length - MAX_HISTORY_ENTRIES);
@@ -6121,7 +6119,7 @@
         var cardId = 'wcard-' + wod.id;
         var before = snapshotCats(wod.categories);
         applyLogXp(wod.categories, xpSplit);
-        logHistoryEntry(wod.day + ' WOD', wod.categories, xpSplit, lines.slice());
+        logHistoryEntry(wod.day + ' WOD', wod.categories, xpSplit, lines.slice(), wod.programId, wod.programOrder);
         var after = snapshotCats(wod.categories);
         var barsHtml = miniBarsHtml(cardId, wod.categories, before, after);
         loggedNotes[cardId] =
@@ -6295,6 +6293,14 @@
         skillScores = d.skillScores || {};
         assignedPrograms = d.assignedPrograms || [];
         trainingHistory = d.trainingHistory || [];
+        trainingHistory.forEach(function(entry){
+          if(entry.programId) return;
+          var fridayOrder = null;
+          if(entry.date === '2026-09-15' && entry.label.indexOf('Friday') !== -1) fridayOrder = 1;
+          if(entry.date === '2026-09-16' && entry.label.indexOf('Strength') !== -1) fridayOrder = 2;
+          if(entry.date === '2026-09-23' && entry.label.indexOf('Strength') !== -1) fridayOrder = 3;
+          if(fridayOrder){ entry.programId = 'pelvicBicepChest'; entry.programOrder = fridayOrder; }
+        });
         focusedSkills = d.focusedSkills || {};
         await saveAll(); // mirror into local storage too, so offline use still works after this
         renderDashboard(false, []);
@@ -6332,7 +6338,16 @@
           }
           assignedPrograms = (ap && ap.value) ? JSON.parse(ap.value) : [];
           trainingHistory = (th && th.value) ? JSON.parse(th.value) : [];
+          trainingHistory.forEach(function(entry){
+            if(entry.programId) return;
+            var fridayOrder = null;
+            if(entry.date === '2026-09-15' && entry.label.indexOf('Friday') !== -1) fridayOrder = 1;
+            if(entry.date === '2026-09-16' && entry.label.indexOf('Strength') !== -1) fridayOrder = 2;
+            if(entry.date === '2026-09-23' && entry.label.indexOf('Strength') !== -1) fridayOrder = 3;
+            if(fridayOrder){ entry.programId = 'pelvicBicepChest'; entry.programOrder = fridayOrder; }
+          });
           focusedSkills = (fs && fs.value) ? JSON.parse(fs.value) : {};
+          saveAll();
           renderDashboard(false, []);
           return;
         }
