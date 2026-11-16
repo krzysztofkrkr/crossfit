@@ -737,7 +737,15 @@
   }
 </style>
 </head>
-<body>
+<body><section id="partner-new" style="position:relative;background:#101820;color:#f4f4f4;padding:24px;margin:16px auto;max-width:950px;border:2px solid #79d7bd;border-radius:16px;font:16px/1.6 system-ui"><h1>Wtorek — Partner A/B/C × 2</h1><p>Nowy trening. Dziś jest poniedziałek 16.11.2026; wtorek przypada 17.11. Datę wykonania wybierz sam.</p><p>30 min pracy + 5 × 2 min przerwy = 40 min. 6 okien po 5 min; nie powtarzaj dystansu po każdym zestawie powtórzeń.</p><p>Propozycja: DB 2 × 15 kg na stabilnym niskim boxie 40 cm; 2 × 17,5 kg tylko po bezproblemowej próbie. KB 20 kg; 16 kg przy zmęczeniu. Pull-ups kipping w krótkich seriach 3–5 lub ring rows. Bieg 400 m synchro (skalowanie), nie 600 m. Partner musi uzgodnić skalowanie.</p><p>Rozgrzewka 8–10 min: 3 min łatwego ergu, spokojna ruchomość barków i bioder, 6 step-over bez ciężaru/stronę, 8 Russian swings lekko, 3–5 łatwych podciągnięć lub ring rows, 100–200 m próby biegu. Bez bólu, szczypania i nasilania niestabilności. Jeśli niestabilność występuje na boxie — nie rób obciążonych step-overów.</p><form id="partner-form"><label>Data wykonania <input type="date" name="date" value="2026-11-17"></label><label>DB kg / rękę <input name="db" type="number" step="0.5" value="15"></label><label>KB kg <input name="kb" type="number" step="0.5" value="20"></label><label>Box cm <input name="box" type="number" value="40"></label><label>Wariant i skale <input name="scale" placeholder="Echo/Assault, kcal, dystans, pull-ups/ring rows"></label><fieldset><legend>A1 · 0:00–5:00</legend><p>700 m row razem, zmiany po 350 m; cel 2:50–3:20</p><p>Następnie maks. DB step-over. Cel pary: <b>16–22</b>; Twój orientacyjny udział: 8–11. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time0" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair0" type="number" min="0"></label><label>Moje powtórzenia <input name="own0" type="number" min="0"></label></fieldset><fieldset><legend>B1 · 7:00–12:00</legend><p>Kalorie według wariantu uzgodnionego z trenerem: 60/52/45; skalowanie dla Was: 45 kcal razem, limit 3:15</p><p>Następnie maks. Pull-ups. Cel pary: <b>16–24</b>; Twój orientacyjny udział: 8–12. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time1" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair1" type="number" min="0"></label><label>Moje powtórzenia <input name="own1" type="number" min="0"></label></fieldset><fieldset><legend>C1 · 14:00–19:00</legend><p>400 m biegu synchro zamiast 600 m; cel 2:30–3:00, limit 3:15</p><p>Następnie maks. KB swing. Cel pary: <b>28–40</b>; Twój orientacyjny udział: 14–20. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time2" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair2" type="number" min="0"></label><label>Moje powtórzenia <input name="own2" type="number" min="0"></label></fieldset><fieldset><legend>A2 · 21:00–26:00</legend><p>700 m row razem; cel 3:00–3:25</p><p>Następnie maks. DB step-over. Cel pary: <b>14–20</b>; Twój orientacyjny udział: 7–10. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time3" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair3" type="number" min="0"></label><label>Moje powtórzenia <input name="own3" type="number" min="0"></label></fieldset><fieldset><legend>B2 · 28:00–33:00</legend><p>Ten sam wariant i liczba kcal co B1, limit 3:15</p><p>Następnie maks. Pull-ups. Cel pary: <b>14–22</b>; Twój orientacyjny udział: 7–11. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time4" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair4" type="number" min="0"></label><label>Moje powtórzenia <input name="own4" type="number" min="0"></label></fieldset><fieldset><legend>C2 · 35:00–40:00</legend><p>400 m biegu synchro; cel 2:40–3:10, limit 3:15</p><p>Następnie maks. KB swing. Cel pary: <b>24–36</b>; Twój orientacyjny udział: 12–18. Wynik = powtórzenia, bez metrów/kcal.</p><label>Czas części wstępnej <input name="time5" placeholder="mm:ss"></label><label>Wynik pary (powt.) <input name="pair5" type="number" min="0"></label><label>Moje powtórzenia <input name="own5" type="number" min="0"></label></fieldset><p>Przerwy: 5–7, 12–14, 19–21, 26–28, 33–35 min. Limit części wstępnej 3:15 dotyczy wariantu skalowanego, nie wyniku RX.</p><label>RPE sesji <input name="rpe" type="number" min="1" max="10"></label><label>Notatki <textarea name="notes"></textarea></label><p>Finisher opcjonalny: dokładnie 5 × (30 s pracy / 30 s przerwy), stir the pot w wersji wskazanej przez trenera. Pomiń przy zmęczonych barkach; nie na ringach.</p><button type="submit">Zapisz wynik / aktualizuj zapis</button> <button type="button" id="partner-export">Eksportuj wynik JSON</button><p id="partner-status">Zapis osobny od historii i XP Whiteboard; nie zmienia dotychczasowych danych. Eksportuj go po treningu.</p></form></section>
+<style>#partner-new fieldset{margin:18px 0;border:1px solid #72918b;border-radius:10px}#partner-new label{display:block;margin:8px 0}#partner-new input,#partner-new textarea{max-width:95%;padding:8px;margin-left:8px;color:#111;background:#fff}#partner-new button{padding:12px;margin:5px;cursor:pointer}</style>
+<script>
+(function(){var f=document.getElementById('partner-form'),key='whiteboard_partner_2026_11_v1',status=document.getElementById('partner-status');
+try{var saved=JSON.parse(localStorage.getItem(key)||'null');if(saved){Object.keys(saved).forEach(function(k){if(f.elements.namedItem(k))f.elements.namedItem(k).value=saved[k];});}}catch(e){}
+function data(){var d=Object.fromEntries(new FormData(f).entries());d.workout='Partner A/B/C x2';d.savedAt=new Date().toISOString();return d;}
+f.addEventListener('submit',function(e){e.preventDefault();try{localStorage.setItem(key,JSON.stringify(data()));status.textContent='Zapisano osobno. Bez naliczania XP. Wyeksportuj wynik JSON jako kopię.';}catch(err){status.textContent='Zapis lokalny niedostępny. Użyj eksportu JSON.';}});
+document.getElementById('partner-export').onclick=function(){var u=URL.createObjectURL(new Blob([JSON.stringify(data(),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='partner-workout-result.json';a.click();setTimeout(function(){URL.revokeObjectURL(u);},1000);};
+})();</script>
 
 <div class="watermark-top">Made by Krzysztof Leśniak · Build: 2026-09-30-v2</div>
 
@@ -1951,7 +1959,6 @@
 
   /* ================= This Week's WODs (real logged/programmed sessions) ================= */
   var WEEKLY_WODS = [
-{"id": "snatchNov12", "day": "Czwartek 12.11 — Snatch Complex + 15-min Interval WOD", "categories": ["oly", "cond"], "summary": "Snatch complex co 90 s przez 12 min (8 rund), potem 3 rundy po maksymalnej pracy w 4 kolejnych minutach: row, TTB, burpee box jump-over i power snatch; 1 min odpoczynku po każdej rundzie.", "blocks": [{"title": "Warm-up — Mobility + Activation", "progression": false, "completionType": "doneNotDone", "lines": ["Pigeon stretch: 60 s na stronę.", "Plate overhead opener: 10 powtórzeń, stopniowo zwiększając zakres.", "2 rundy: 200 m trucht / 60 s na dowolnym ergu, banded overhead squat 10, 2 snatch deadlift + 2 hang snatch pull + 2 high hang power snatch z pustą sztangą."]}, {"title": "Snatch Complex — co 90 s × 8 rund", "progression": true, "rounds": 8, "lines": [{"text": "1 Power Snatch + 1 Hang Squat Snatch + 1 Touch-and-Go Squat Snatch — start od 50% RPE 5, buduj do ciężkiej, solidnej serii", "log": {"key": "snatchNov12Complex", "mode": "weight_only", "label": "Snatch Complex", "rounds": 8}}]}, {"title": "Conditioning — 3 rundy, każda 4 min pracy + 1 min odpoczynku", "progression": true, "rounds": 3, "lines": ["Min 1 — maks. kalorii na rowie.", "Min 2 — maks. toes-to-bar.", "Min 3 — maks. burpee box jump-over 60/50 cm, schodzenie z boxa.", "Min 4 — maks. power snatch, sztanga 40 kg.", "Min 5 — odpoczynek."]}], "notesRx": "Zalogowane jako wykonany w zeszły czwartek. Snatch complex: zapisz ciężar ostatniej, najcięższej udanej serii. Conditioning: wpisz wyniki każdej minuty w każdej z 3 rund. RX sztanga 60/40 kg; dla Ciebie proponuję 40 kg na power snatch w conditioningu, chyba że technika lub zmęczenie po benchu/deadlifcie tego nie pozwalały. To sesja olimpijsko-kondycyjna, nie siłowy test maksimum.", "strengthLifts": []},
     {
       id:'snatchvar1', day:'Weightlifting — Snatch Variations + Metcon',
       categories:['oly','cond'],
@@ -4401,7 +4408,25 @@
      Only the earliest not-yet-completed session in each program is shown in This Week's
      WODs — completing one reveals the next automatically, exactly like a real program
      should behave, instead of dumping all 6 weeks on the list at once. */
-  function visibleWeeklyWods(){ return WEEKLY_WODS.filter(function(w){ return w.id === 'snatchNov12'; }); }
+  function visibleWeeklyWods(){
+    var groups = {};
+    WEEKLY_WODS.forEach(function(wod){
+      if(wod.programId){
+        if(!groups[wod.programId]) groups[wod.programId] = [];
+        groups[wod.programId].push(wod);
+      }
+    });
+    Object.keys(groups).forEach(function(pid){
+      groups[pid].sort(function(a,b){ return a.programOrder - b.programOrder; });
+    });
+    return WEEKLY_WODS.filter(function(wod){
+      if(!wod.programId) return true;
+      var seq = groups[wod.programId];
+      var firstIncomplete = seq.filter(function(w){ return !isWodCompleted(w); })[0];
+      if(firstIncomplete) return firstIncomplete.id === wod.id;
+      return wod.programOrder === seq[seq.length-1].programOrder; // whole program done — keep showing the last one
+    });
+  }
 
   async function resetWodHistory(wodDay){
     trainingHistory = trainingHistory.filter(function(e){ return e.label !== wodDay + ' WOD'; });
@@ -5381,10 +5406,6 @@
       }
       var roundsTag = b.rounds ? ' <span class="rounds-tag">× ' + b.rounds + ' rounds</span>' : '';
       var inlineCompletionHtml = blockCompletionWidgetHtml(wod.id, b, bi);
-      if(wod.id === 'snatchNov12' && b.completionType === 'doneNotDone'){
-        inlineCompletionHtml = inlineCompletionHtml.replace('done-btn" data-done="yes"', 'done-btn active" data-done="yes"').replace('done-btn active" data-done="no"', 'done-btn" data-done="no"');
-      }
-
       var linesForRender = b.lines;
       if(wod.id === 'tue2' && b.title.indexOf('Mixed Strength B') === 0){
         var rowTarget = repTarget('dbSeeSawRow20s', strLevelForTargets);
@@ -6064,7 +6085,6 @@
           var condVerb = condAchievedLevel > condCurrentLevel ? 'higher than' : (condAchievedLevel === condCurrentLevel ? 'right at' : 'below');
           lines.push('Conditioning AMRAP score (lower of A/B, since fatigue makes that the honest read) proves roughly Level ' + condAchievedLevel + ' — ' + condVerb + ' your current Level ' + condCurrentLevel + '.');
         }
-        if(wod.id === 'snatchNov12'){ xpEach = 0; xpSplit = {}; wod.categories.forEach(function(c){xpSplit[c]=0;}); lines.push('Sesja historyczna z czwartku 12.11: zapis wyników bez naliczania XP i progresji.'); }
         var xpSplitText = wod.categories.map(function(c){ return '+' + xpSplit[c] + ' ' + CATEGORY_LABEL[c]; }).join(', ');
 
         var isFinalProgramSession = false;
@@ -6076,9 +6096,8 @@
 
         var cardId = 'wcard-' + wod.id;
         var before = snapshotCats(wod.categories);
-        if(wod.id !== 'snatchNov12') applyLogXp(wod.categories, xpSplit);
+        applyLogXp(wod.categories, xpSplit);
         logHistoryEntry(wod.day + ' WOD', wod.categories, xpSplit, lines.slice());
-        if(wod.id === 'snatchNov12'){ var entry = trainingHistory[trainingHistory.length-1]; entry.wodId='snatchNov12'; entry.date='2026-11-12'; entry.sessionType='historical'; }
         var after = snapshotCats(wod.categories);
         var barsHtml = miniBarsHtml(cardId, wod.categories, before, after);
         loggedNotes[cardId] =
